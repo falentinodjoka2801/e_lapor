@@ -7,6 +7,7 @@ class SizeConfig {
   static double horizontalBlock;
   static double verticalBlock;
   static double leftAndRightContentContainerPadding;
+  static double topAndBottomContentContainerPadding;
 
   void initSize(BuildContext _sizeConfigBuildContext) {
     _mediaQueryData = MediaQuery.of(_sizeConfigBuildContext);
@@ -15,6 +16,7 @@ class SizeConfig {
     horizontalBlock = screenWidth / 100;
     verticalBlock = screenHeight / 100;
 
-    leftAndRightContentContainerPadding = horizontalBlock * 4.5;
+    leftAndRightContentContainerPadding = horizontalBlock * 3.85;
+    topAndBottomContentContainerPadding = horizontalBlock * 4.85;
   }
 }

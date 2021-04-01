@@ -29,7 +29,7 @@ class GPSGrantPermission extends StatelessWidget {
                 fontSize: SizeConfig.horizontalBlock * 4.0,
                 fontWeight: FontWeight.w400)),
         SizedBox(height: SizeConfig.horizontalBlock * 8.25),
-        Button.submitButton(context, 'YA, IZINKAN', () {},
+        Button.submitButton(context, 'YA, IZINKAN', () async {},
             color: CustomColors.eLaporGreen),
         SizedBox(height: SizeConfig.horizontalBlock * 5.0),
         Button.submitButton(context, 'ABAIKAN', () {},

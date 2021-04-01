@@ -7,9 +7,9 @@ import 'package:e_lapor/libraries/CustomColors.dart';
 
 import 'package:e_lapor/globalWidgets/CustomForm.dart';
 
-import 'package:e_lapor/ListTombol.dart';
-
 class Login extends StatefulWidget {
+  final void Function() masuk;
+  Login(this.masuk);
   _LoginState createState() => _LoginState();
 }
 
@@ -19,8 +19,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     SizeConfig().initSize(context);
 
-    return Scaffold(
-        body: Stack(children: [
+    return Stack(children: [
       Container(
         decoration: BoxDecoration(
             image: DecorationImage(
@@ -85,10 +84,7 @@ class _LoginState extends State<Login> {
               ]),
               SizedBox(height: SizeConfig.horizontalBlock * 5.0),
               Button.submitButton(context, 'MASUK', () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_mPRBuildContext) => ListTombol()));
+                widget.masuk();
               },
                   color: CustomColors.eLaporGreen,
                   borderWidth: 1.0,
@@ -97,6 +93,6 @@ class _LoginState extends State<Login> {
           ),
         ),
       )
-    ]));
+    ]);
   }
 }

@@ -8,10 +8,12 @@ class Alert {
       @required String title,
       @required String subTitle,
       @required Widget actions,
-      bool isDismissible = false}) {
+      bool isDismissible = false,
+      bool useRouteNavigator = false}) {
     return showDialog(
         barrierDismissible: isDismissible,
         context: _alertBuildContext,
+        useRootNavigator: useRouteNavigator,
         builder: (_showDialogContext) {
           return Dialog(
               elevation: 0.0,
@@ -55,10 +57,12 @@ class Alert {
       {@required String icon,
       @required Widget body,
       @required Widget actions,
-      bool isDismissible = false}) {
+      bool isDismissible = false,
+      bool useRouteNavigator = false}) {
     return showDialog(
         barrierDismissible: isDismissible,
         context: _alertBuildContext,
+        useRootNavigator: useRouteNavigator,
         builder: (_showDialogContext) {
           return Dialog(
               elevation: 0.0,
@@ -73,19 +77,21 @@ class Alert {
                       color: Colors.white,
                       borderRadius:
                           BorderRadius.circular(_borderRadiusCircular)),
-                  child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        ClipRRect(
-                            borderRadius: BorderRadius.circular(77.0),
-                            child:
-                                Image.asset(icon, width: 77.0, height: 77.0)),
-                        SizedBox(height: 26.0),
-                        body,
-                        SizedBox(height: 16.0),
-                        actions
-                      ])));
+                  child: SingleChildScrollView(
+                    child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          ClipRRect(
+                              borderRadius: BorderRadius.circular(77.0),
+                              child:
+                                  Image.asset(icon, width: 77.0, height: 77.0)),
+                          SizedBox(height: 26.0),
+                          body,
+                          SizedBox(height: 16.0),
+                          actions
+                        ]),
+                  )));
         });
   }
 }

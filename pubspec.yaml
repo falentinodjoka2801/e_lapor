@@ -26,6 +26,9 @@ dependencies:
   http: ^0.13.1
   geolocator: ^6.1.1
   shared_preferences: ^2.0.5
+  # font_awesome_flutter: ^9.0.0
+  line_icons: ^2.0.0
+  provider: ^5.0.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -52,6 +55,8 @@ flutter:
     - assets/img/
     - assets/img/icons/
     - assets/img/icons/tabbar/
+    - assets/img/icons/laporan/
+    - assets/json/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

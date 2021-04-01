@@ -100,6 +100,8 @@ class CustomForm {
       {@required List<DropdownMenuItem> items,
       @required dynamic value,
       @required void Function(dynamic selectedValue) onChanged,
+      @required String defaultOptionText,
+      @required dynamic defaultOptionValue,
       TextStyle hintStyle,
       Widget leading,
       double leadingAndHintTextSpacing = 0.0,
@@ -131,8 +133,12 @@ class CustomForm {
           SizedBox(width: leadingAndHintTextSpacing),
           Expanded(
             child: DropdownButton(
-              onChanged: onChanged,
-              items: items,
+              onChanged: (enabled) ? onChanged : (selectedValue) => null,
+              items: <DropdownMenuItem>[
+                DropdownMenuItem(
+                    child: Text(defaultOptionText), value: defaultOptionValue),
+                ...items
+              ],
               isDense: true,
               isExpanded: true,
               value: value,
