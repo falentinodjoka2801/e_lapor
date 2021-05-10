@@ -8,12 +8,14 @@ import 'package:e_lapor/libraries/CustomColors.dart';
 class LaporanItem extends StatelessWidget {
   final String imageAssetPath;
   final String buttonText;
+  final double buttonTextSize;
   final void Function() onButtonTap;
 
   LaporanItem(
       {@required this.imageAssetPath,
       @required this.buttonText,
-      @required this.onButtonTap});
+      @required this.onButtonTap,
+      this.buttonTextSize});
 
   Widget build(BuildContext context) {
     SizeConfig().initSize(context);
@@ -30,7 +32,8 @@ class LaporanItem extends StatelessWidget {
             isBlock: true,
             isPill: true,
             color: CustomColors.eLaporGreen,
-            elevation: 5.0)
+            elevation: 5.0,
+            buttonFontSize: buttonTextSize)
       ]),
     );
   }

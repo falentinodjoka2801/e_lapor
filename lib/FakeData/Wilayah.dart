@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart' show Text, DropdownMenuItem;
+import 'package:flutter/material.dart' show Text, DropdownMenuItem, required;
 import 'package:flutter/services.dart';
 
 import 'package:e_lapor/libraries/ClientPath.dart';
@@ -63,9 +63,22 @@ class Wilayah {
     return _decodedKelurahan;
   }
 
-  static List dropdownMenuItemBuilder(List dropdownMenuItems) {
-    return dropdownMenuItems
-        .map((e) => DropdownMenuItem(value: e['id'], child: Text(e['nama'])))
-        .toList();
+  static List dropdownMenuItemBuilder(List dropdownMenuItems,
+      {@required String textIndex,
+      @required String valueIndex,
+      bool parseValueToInt = false}) {
+    return (dropdownMenuItems.length >= 1)
+        ? dropdownMenuItems.map((e) {
+            dynamic _value = e[valueIndex];
+
+            if (parseValueToInt) {
+              if (_value.runtimeType == String) {
+                _value = int.parse(_value);
+              }
+            }
+
+            return DropdownMenuItem(value: _value, child: Text(e[textIndex]));
+          }).toList()
+        : <DropdownMenuItem>[];
   }
 }

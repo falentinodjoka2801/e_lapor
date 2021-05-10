@@ -4,7 +4,7 @@ class Alert {
   static const double _borderRadiusCircular = 15.0;
 
   static dynamic textComponent(BuildContext _alertBuildContext,
-      {@required String icon,
+      {@required Widget icon,
       @required String title,
       @required String subTitle,
       @required Widget actions,
@@ -32,10 +32,7 @@ class Alert {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        ClipRRect(
-                            borderRadius: BorderRadius.circular(77.0),
-                            child:
-                                Image.asset(icon, width: 77.0, height: 77.0)),
+                        (icon != null) ? icon : SizedBox(),
                         SizedBox(height: 25.0),
                         (title != null)
                             ? Text(title,
@@ -54,7 +51,7 @@ class Alert {
   }
 
   static dynamic widgetComponent(BuildContext _alertBuildContext,
-      {@required String icon,
+      {@required Widget icon,
       @required Widget body,
       @required Widget actions,
       bool isDismissible = false,
@@ -82,10 +79,7 @@ class Alert {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          ClipRRect(
-                              borderRadius: BorderRadius.circular(77.0),
-                              child:
-                                  Image.asset(icon, width: 77.0, height: 77.0)),
+                          (icon != null) ? icon : SizedBox(),
                           SizedBox(height: 26.0),
                           body,
                           SizedBox(height: 16.0),

@@ -20,7 +20,8 @@ class Button {
       bool isPill = false,
       bool useBorder = true,
       String size,
-      Widget trailing}) {
+      Widget trailing,
+      double buttonFontSize}) {
     SizeConfig().initSize(parentContext);
 
     borderColor = (borderColor == null) ? Color(0x55e9ecef) : borderColor;
@@ -54,7 +55,8 @@ class Button {
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: (outline) ? color : Colors.white,
-                fontSize: fontSize)),
+                fontSize:
+                    (buttonFontSize != null) ? buttonFontSize : fontSize)),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25),
         ));
@@ -128,7 +130,7 @@ class Button {
         child: Stack(
           children: [
             InkWell(
-                onTap: onTap,
+                onTap: (isBusy) ? null : onTap,
                 borderRadius: BorderRadius.circular(7.5),
                 splashColor: (outline) ? color : CustomColors.eLaporWhite,
                 child: Padding(
@@ -136,12 +138,24 @@ class Button {
                         top: SizeConfig.horizontalBlock * 4.6,
                         bottom: SizeConfig.horizontalBlock * 4.6),
                     child: (isBusy)
-                        ? Center(
-                            child: SizedBox(
-                                width: 15,
-                                height: 15,
-                                child:
-                                    CircularProgressIndicator(strokeWidth: .5)))
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                  width: 15,
+                                  height: 15,
+                                  child: CircularProgressIndicator(
+                                      strokeWidth: 1.5,
+                                      backgroundColor: Colors.transparent,
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          CustomColors.eLaporWhite))),
+                              SizedBox(width: 15.0),
+                              Text('Processing ...',
+                                  style: TextStyle(
+                                      color: CustomColors.eLaporWhite,
+                                      fontWeight: FontWeight.w700))
+                            ],
+                          )
                         : Container(
                             width: double.infinity,
                             child: Text(text,

@@ -1,0 +1,24 @@
+{
+    image: {
+        ImageWidth: 960, 
+        Model: sdk_gphone_x86_arm, 
+        ImageHeight: 1280, 
+        Make: Google, 
+        ExifOffset: 144, 
+        Orientation: 1, 
+        ModifyDate: 2021:05:06 13:47:04
+    }, 
+    thumbnail: {}, 
+    exif: {
+        WhiteBalance: 0,
+        FocalLength: 5.0,
+        ExposureTime: 0.01,
+        ISO: 100,
+        Flash: 0,
+        LightSource: 0,
+        FNumber: 2.8
+    }, 
+    gps: {}, 
+    interoperability: {}, 
+    makernote: {}
+}

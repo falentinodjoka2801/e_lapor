@@ -14,4 +14,5 @@ class ClientPath {
   static String tabbarIconPath = assetsImg + '/icons/tabbar';
   static String laporanIconPath = assetsImg + '/icons/laporan';
   static String jsonPath = 'assets/json';
+  static String svgPath = iconPath + '/svg';
 }

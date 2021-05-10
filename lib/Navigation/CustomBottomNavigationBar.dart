@@ -4,6 +4,7 @@ import 'package:e_lapor/libraries/CustomColors.dart';
 import 'package:e_lapor/libraries/SizeConfig.dart';
 
 import 'package:e_lapor/Navigation/TabItem.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   final TabItem currenTabItem;
@@ -55,8 +56,10 @@ class CustomBottomNavigationBar extends StatelessWidget {
           padding: EdgeInsets.only(top: topPadding),
           child: Column(
             children: [
-              Image.asset(
-                  (isActive) ? tabIconActive[tabItem] : tabIcon[tabItem]),
+              SvgPicture.asset(tabIcons[tabItem],
+                  color: (isActive)
+                      ? CustomColors.eLaporDarkGreen
+                      : CustomColors.eLaporWhite),
               SizedBox(height: sizedBoxHeight),
               Text(tabName[tabItem].toUpperCase(), style: _labelStyle)
             ],

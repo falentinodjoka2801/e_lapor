@@ -1,0 +1,3 @@
+Changelog :
+1. Penyempurnaan form input laporan opt
+2. Pilih foto dari galeri di screen tambah laporan opt sudah menampilkan foto di atas button

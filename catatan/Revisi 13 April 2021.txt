@@ -1,0 +1,6 @@
+E Lapor
+- Yang katanya gak perlu pakai selectbox nanti diganti aja jadi textbox yang disabled (Detail akun)
+	=> OK, belum ada jawaban string datang dr mana
+- Yang button sisa file di excel itu akan upload file excel
+- Yang button pilih foto dari galeri fotonya ditampilkan di atas tombol tsb.
+	=> ok (CLEAR)

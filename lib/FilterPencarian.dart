@@ -7,6 +7,7 @@ import 'package:e_lapor/libraries/SizeConfig.dart';
 import 'package:e_lapor/globalWidgets/CustomForm.dart';
 
 import 'package:e_lapor/FakeData/Wilayah.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class FilterPencarian extends StatefulWidget {
   _FilterPencarianState createState() => _FilterPencarianState();
@@ -46,16 +47,25 @@ contohnya karena valuenya tidak dirubah, sementara item item dalam dropdownbutto
     double _labelAndFormSpacing = SizeConfig.horizontalBlock * 2.5;
     double _leadingAndHintTextSpacing = SizeConfig.horizontalBlock * 5.25;
 
-    List<DropdownMenuItem> _provinsi =
-        Wilayah.dropdownMenuItemBuilder(_provinsiState);
-    List<DropdownMenuItem> _kotaKabupaten =
-        Wilayah.dropdownMenuItemBuilder(_kotaKabupatenState);
-    List<DropdownMenuItem> _kecamatan =
-        Wilayah.dropdownMenuItemBuilder(_kecamatanState);
-    List<DropdownMenuItem> _kelurahan =
-        Wilayah.dropdownMenuItemBuilder(_kelurahanState);
+    List<DropdownMenuItem> _provinsi = Wilayah.dropdownMenuItemBuilder(
+        _provinsiState,
+        textIndex: 'nama',
+        valueIndex: 'id');
+    List<DropdownMenuItem> _kotaKabupaten = Wilayah.dropdownMenuItemBuilder(
+        _kotaKabupatenState,
+        textIndex: 'nama',
+        valueIndex: 'id');
+    List<DropdownMenuItem> _kecamatan = Wilayah.dropdownMenuItemBuilder(
+        _kecamatanState,
+        textIndex: 'nama',
+        valueIndex: 'id');
+    List<DropdownMenuItem> _kelurahan = Wilayah.dropdownMenuItemBuilder(
+        _kelurahanState,
+        textIndex: 'nama',
+        valueIndex: 'id');
 
-    Image _leading = Image.asset(ClientPath.laporanIconPath + '/pin-gmaps.png');
+    Widget _leading = SvgPicture.asset(ClientPath.svgPath + '/map-pin.svg',
+        color: CustomColors.dangerColor);
 
     return Column(children: [
       Padding(

@@ -1,34 +1,71 @@
 import 'package:e_lapor/TambahLaporan.dart';
-import 'package:e_lapor/libraries/ClientPath.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
+import 'package:e_lapor/Navigation/TabItem.dart';
 import 'package:e_lapor/Object/Laporan.dart';
 
+import 'package:e_lapor/DPI/Banjir.dart';
+import 'package:e_lapor/DPI/BencanaAlam.dart';
+import 'package:e_lapor/DPI/GangguanFisiologis.dart';
+import 'package:e_lapor/DPI/Kekeringan.dart';
+import 'package:e_lapor/DetailLaporan.dart';
+
 import 'package:e_lapor/libraries/SizeConfig.dart';
+import 'package:e_lapor/libraries/ClientPath.dart';
 import 'package:e_lapor/libraries/CustomColors.dart';
 
 class LaporankuItem extends StatelessWidget {
   final Laporan laporan;
-  LaporankuItem(this.laporan);
+  final TabItem tabItem;
+  LaporankuItem(this.laporan, {@required this.tabItem});
 
   Widget build(BuildContext context) {
-    Widget _statusIcon = Image.asset(statusLaporanIcon[laporan.statusLaporan]);
-    String _text = statusLaporanReadable[laporan.statusLaporan];
+    int _idLaporan = laporan.id;
+    String _statusLaporan = laporan.statusLaporan;
+    String _statusLaporanLC = _statusLaporan.toLowerCase();
+
+    Widget _statusIcon =
+        (_statusLaporanLC != statusLaporanReadable['pending'].toLowerCase())
+            ? SvgPicture.asset(statusLaporanIcon[_statusLaporanLC])
+            : null;
+
+    String _text = laporan.statusLaporan;
     Text _statusText = Text(_text,
         style: TextStyle(
-            color: statusLaporanColor[laporan.statusLaporan],
-            fontSize: SizeConfig.horizontalBlock * 5.0,
+            color: statusLaporanColor[_text.toLowerCase()],
+            fontSize: SizeConfig.horizontalBlock * 4.5,
             fontWeight: FontWeight.w700));
 
-    StatusLaporan statusLaporan = laporan.statusLaporan;
+    String _tipeLaporan = laporan.tipeLaporan;
+    String _tipeLaporanLC = _tipeLaporan.toLowerCase();
 
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (_) => TambahLaporan(
-                    idLaporan: 'tes', state: TambahLaporanState.detail)));
+        print(_idLaporan);
+        Navigator.push(navigatesKey[tabItem].currentState.context,
+            MaterialPageRoute(builder: (context) {
+          if (_tipeLaporanLC == 'opt') {
+            return DetailLaporan(idLaporan: _idLaporan);
+          }
+          if (_tipeLaporanLC == 'gangguan fisiologis') {
+            return GangguanFisiologis(
+                idLaporan: _idLaporan, action: GangguanFisiologisAction.detail);
+          }
+          if (_tipeLaporanLC == 'banjir') {
+            return Banjir(idLaporan: _idLaporan, action: BanjirAction.detail);
+          }
+          if (_tipeLaporanLC == 'kekeringan') {
+            return Kekeringan(
+                idLaporan: _idLaporan, action: KekeringanAction.detail);
+          }
+          if (_tipeLaporanLC == 'bencana') {
+            return BencanaAlam(
+                idLaporan: _idLaporan, action: BencanaAlamAction.detail);
+          }
+
+          return null;
+        }));
       },
       child: Padding(
           padding: EdgeInsets.only(top: SizeConfig.horizontalBlock * 4.0),
@@ -46,25 +83,58 @@ class LaporankuItem extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Text(laporan.waktu + ' - ' + laporan.jam,
+                          Text(laporan.waktu,
                               style: TextStyle(
                                   color: CustomColors.eLaporBlack,
                                   fontSize: SizeConfig.horizontalBlock * 3.0,
                                   fontWeight: FontWeight.w500)),
-                          (statusLaporan == StatusLaporan.pending)
+                          (_statusLaporanLC ==
+                                  statusLaporanReadable['pending']
+                                      .toLowerCase())
                               ? Spacer()
                               : SizedBox(),
-                          (statusLaporan == StatusLaporan.pending)
+                          (_statusLaporanLC ==
+                                  statusLaporanReadable['pending']
+                                      .toLowerCase())
                               ? GestureDetector(
                                   child: Icon(Icons.edit,
-                                      size: SizeConfig.horizontalBlock * 4.0,
+                                      size: SizeConfig.horizontalBlock * 5.5,
                                       color: CustomColors.eLaporDarkGreen),
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => TambahLaporan(
-                                              idLaporan: 'Tes',
-                                              state: TambahLaporanState.edit))),
+                                  onTap: () {
+                                    print(_idLaporan);
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (_) {
+                                      if (_tipeLaporanLC == 'opt') {
+                                        return TambahLaporan(
+                                            idLaporan: _idLaporan,
+                                            state: TambahLaporanState.edit);
+                                      }
+                                      if (_tipeLaporanLC ==
+                                          'gangguan fisiologis') {
+                                        return GangguanFisiologis(
+                                            idLaporan: _idLaporan,
+                                            action:
+                                                GangguanFisiologisAction.edit);
+                                      }
+                                      if (_tipeLaporanLC == 'banjir') {
+                                        return Banjir(
+                                            idLaporan: _idLaporan,
+                                            action: BanjirAction.edit);
+                                      }
+                                      if (_tipeLaporanLC == 'kekeringan') {
+                                        return Kekeringan(
+                                            idLaporan: _idLaporan,
+                                            action: KekeringanAction.edit);
+                                      }
+                                      if (_tipeLaporanLC == 'bencana') {
+                                        return BencanaAlam(
+                                            idLaporan: _idLaporan,
+                                            action: BencanaAlamAction.edit);
+                                      }
+
+                                      return null;
+                                    }));
+                                  },
                                 )
                               : SizedBox()
                         ],
@@ -86,7 +156,8 @@ class LaporankuItem extends StatelessWidget {
                                 fontSize: SizeConfig.horizontalBlock * 3.5,
                                 fontWeight: FontWeight.w500))
                       ]),
-                      (laporan.statusLaporan != StatusLaporan.pending)
+                      (_statusLaporanLC !=
+                              statusLaporanReadable['pending'].toLowerCase())
                           ? Padding(
                               padding: EdgeInsets.symmetric(
                                   vertical: SizeConfig.horizontalBlock * 3.25),
@@ -96,11 +167,12 @@ class LaporankuItem extends StatelessWidget {
                                     color: CustomColors.eLaporBlack),
                               ))
                           : SizedBox(),
-                      (laporan.statusLaporan != StatusLaporan.pending)
+                      (_statusLaporanLC !=
+                              statusLaporanReadable['pending'].toLowerCase())
                           ? Row(children: [
                               _statusIcon,
-                              SizedBox(width: SizeConfig.horizontalBlock * 3.5),
-                              _statusText
+                              SizedBox(width: SizeConfig.horizontalBlock * 3.0),
+                              Expanded(child: _statusText)
                             ])
                           : SizedBox()
                     ]),

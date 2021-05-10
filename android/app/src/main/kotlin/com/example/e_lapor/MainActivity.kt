@@ -1,4 +1,4 @@
-package com.example.e_lapor
+package com.pertanian.elapor
 
 import io.flutter.embedding.android.FlutterActivity
 

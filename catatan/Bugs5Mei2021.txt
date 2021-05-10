@@ -1,0 +1,4 @@
+1. tahun dan bulan terlihat setelah pilih foto
+2. Jarak dari laporan OPT dibuat seperti DPI Banjir
+3. Tab Bar kenapa hilang
+4. Setelah login, ke splashscreen, dari splashscreen ngarahkan ke akun, seharusnya ke beranda.

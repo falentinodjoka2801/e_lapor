@@ -1,0 +1,7 @@
+1. Dari detil screen, saat back malah lgsg ke beranda, harusnya balik ke laporanku dulu (CLEAR)
+2. Dari beranda pencet back tidak ada alert apakah anda ingin keluar aplikasi atau tidak (CLEAR)
+3. Saat pembuatan semua laporan, inputan bulan, tahun, periode, okmar/asep, th mt, mt mh mk, subround belum sesuai
+4. Laporan OPT, kolom OPT seharusnya belum nongol pilihannya kalo belum pilih komoditas & kriteria OPT (CLEAR)
+5. Input curah hujan belum ada (CLEAR)
+5. Firebase udah bs?
+6. Placeholder dibuat "Masukkan nilai" (CLEAR)

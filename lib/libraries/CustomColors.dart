@@ -18,4 +18,5 @@ class CustomColors {
   static const Color eLaporBackgroundColor = Color(0XFFF5F7FA);
   static const Color eLaporDisabledForm = Color(0XFFE3E7EB);
   static const Color eLaporShadowColor = Color.fromRGBO(0, 0, 0, 0.15);
+  static const Color eLaporFormBorderColor = Color(0xFFCBD2D9);
 }

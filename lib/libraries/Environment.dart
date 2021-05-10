@@ -1,4 +1,6 @@
 class Environment {
-  static String environment = 'development';
+  static const String dev = 'development';
+  static const String prod = 'production';
+  static String environment = prod;
   // static String environment = 'production';
 }

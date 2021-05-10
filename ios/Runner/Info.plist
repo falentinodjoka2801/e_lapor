@@ -41,5 +41,11 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Please give this application to take an image from your device</string>
+	<key>NSCameraUsageDescription</key>
+	<string>E-Lapor needs access to your camera to take an image</string> 
+	<key>NSMicrophoneUsageDescription</key>
+	<string>E-Lapor needs access to your microphone to record a video</string>
 </dict>
 </plist>

@@ -1,37 +1,44 @@
-import 'package:flutter/material.dart' show Color;
+import 'package:flutter/material.dart' show Color, required;
 
 import 'package:e_lapor/libraries/ClientPath.dart';
 import 'package:e_lapor/libraries/CustomColors.dart';
 
-enum StatusLaporan { pending, checking, verified, rejected }
-
-Map<StatusLaporan, String> statusLaporanIcon = {
-  StatusLaporan.checking: ClientPath.laporanIconPath + '/clock.png',
-  StatusLaporan.pending: ClientPath.laporanIconPath + '/info.png',
-  StatusLaporan.verified: ClientPath.laporanIconPath + '/check.png',
-  StatusLaporan.rejected: ClientPath.laporanIconPath + '/warning.png'
+Map<String, String> statusLaporanIcon = {
+  'diverifikasi kordinator kota/kab': ClientPath.svgPath + '/check.svg',
+  'diverifikasi kordinator provinsi': ClientPath.svgPath + '/check.svg',
+  'ditolak kordinator kota/kab': ClientPath.svgPath + '/alert-octagon.svg',
+  'ditolak kordinator provinsi': ClientPath.svgPath + '/alert-octagon.svg'
 };
 
-Map<StatusLaporan, String> statusLaporanReadable = {
-  StatusLaporan.checking: 'Dalam Pengecekan',
-  StatusLaporan.pending: 'Pending',
-  StatusLaporan.verified: 'Telah Diverifikasi',
-  StatusLaporan.rejected: 'Ditolak'
+Map<String, String> statusLaporanReadable = {
+  'pending': 'Pending',
+  'diverifikasi kordinator kota/kab': 'Diverifikasi Kordinator Kota/Kab',
+  'diverifikasi kordinator provinsi': 'Diverifikasi Kordinator Provinsi',
+  'ditolak kordinator kota/kab': 'Ditolak Kordinator Kota/Kab',
+  'ditolak kordinator provinsi': 'Ditolak Kordinator Provinsi'
 };
 
-Map<StatusLaporan, Color> statusLaporanColor = {
-  StatusLaporan.checking: CustomColors.warningColor,
-  StatusLaporan.pending: CustomColors.secondaryColor,
-  StatusLaporan.verified: CustomColors.successColor,
-  StatusLaporan.rejected: CustomColors.dangerColor
+Map<String, Color> statusLaporanColor = {
+  'pending': CustomColors.secondaryColor,
+  'diverifikasi kordinator kota/kab': CustomColors.successColor,
+  'diverifikasi kordinator provinsi': CustomColors.successColor,
+  'ditolak kordinator kota/kab': CustomColors.dangerColor,
+  'ditolak kordinator provinsi': CustomColors.dangerColor
 };
 
 class Laporan {
+  final int id;
   final String waktu;
-  final String jam;
   final String judul;
   final String lokasi;
-  final StatusLaporan statusLaporan;
+  final String statusLaporan;
+  final String tipeLaporan;
 
-  Laporan({this.waktu, this.jam, this.judul, this.lokasi, this.statusLaporan});
+  Laporan(
+      {@required this.id,
+      @required this.judul,
+      @required this.statusLaporan,
+      @required this.waktu,
+      @required this.lokasi,
+      @required this.tipeLaporan});
 }

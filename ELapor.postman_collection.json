@@ -1,0 +1,4183 @@
+{
+	"info": {
+		"_postman_id": "3b94bd02-fbf4-4b58-8a09-95d3391b1093",
+		"name": "ELapor",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "phone",
+									"value": "0811428701",
+									"description": "required",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"description": "required",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{live}}/api/login",
+							"host": [
+								"{{live}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "phone",
+											"value": "0811428701",
+											"description": "required",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "password",
+											"description": "required",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{local}}/api/login",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Mar 2021 16:26:21 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Mar 2021 16:26:21 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.3.25"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"id\": 1,\n        \"name\": \"Bagas W\",\n        \"photo\": \"logo.png\",\n        \"email\": \"dev@pertanian.go.id\",\n        \"provinsi\": null,\n        \"kabupaten\": null,\n        \"kecamatan\": null,\n        \"desa\": null,\n        \"privileges\": {\n            \"id\": 1,\n            \"name\": \"Super Admin\"\n        }\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Attribute",
+			"item": [
+				{
+					"name": "Kecamatan Wilayah Kerja",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{live}}/api/v1/kecamatan-wilker?user=10",
+							"host": [
+								"{{live}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"kecamatan-wilker"
+							],
+							"query": [
+								{
+									"key": "user",
+									"value": "10",
+									"description": "USER ID"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Kecamatan Wilayah Kerja",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/kecamatan-wilker?user=10",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"kecamatan-wilker"
+									],
+									"query": [
+										{
+											"key": "user",
+											"value": "10",
+											"description": "USER ID"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Mar 2021 15:26:14 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Mar 2021 15:26:14 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.3.25"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"data\": [\n        {\n            \"kecamatan_id\": 2537,\n            \"name\": \"BOGOR BARAT\"\n        },\n        {\n            \"kecamatan_id\": 2536,\n            \"name\": \"BOGOR TENGAH\"\n        },\n        {\n            \"kecamatan_id\": 2533,\n            \"name\": \"BOGOR SELATAN\"\n        },\n        {\n            \"kecamatan_id\": 2534,\n            \"name\": \"BOGOR TIMUR\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Desa Wilayah Kerja",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{live}}/api/v1/desa-wilker?kecamatan=179",
+							"host": [
+								"{{live}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"desa-wilker"
+							],
+							"query": [
+								{
+									"key": "kecamatan",
+									"value": "179",
+									"description": "ID Kecamatan"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Desa Wilayah Kerja",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/desa-wilker?kecamatan=179",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"desa-wilker"
+									],
+									"query": [
+										{
+											"key": "kecamatan",
+											"value": "179",
+											"description": "ID Kecamatan"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Mar 2021 16:41:21 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Mar 2021 16:41:21 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.3.25"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "53"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"datsa\": [\n        {\n            \"id\": 4265,\n            \"name\": \"BLANG MANE\"\n        },\n        {\n            \"id\": 4266,\n            \"name\": \"MATANG PANYANG\"\n        },\n        {\n            \"id\": 4267,\n            \"name\": \"ALUE LHOK\"\n        },\n        {\n            \"id\": 4268,\n            \"name\": \"SEUNEUBOK ACEH\"\n        },\n        {\n            \"id\": 4269,\n            \"name\": \"BUKET PIDIE\"\n        },\n        {\n            \"id\": 4270,\n            \"name\": \"BUKET GURU\"\n        },\n        {\n            \"id\": 4271,\n            \"name\": \"ALUE BIENG\"\n        },\n        {\n            \"id\": 4272,\n            \"name\": \"PEUREUPOK\"\n        },\n        {\n            \"id\": 4273,\n            \"name\": \"BLANG GUNCI\"\n        },\n        {\n            \"id\": 4274,\n            \"name\": \"PANTE SEULEUMAK\"\n        },\n        {\n            \"id\": 4275,\n            \"name\": \"NGA\"\n        },\n        {\n            \"id\": 4276,\n            \"name\": \"MAMPREE\"\n        },\n        {\n            \"id\": 4277,\n            \"name\": \"TANJONG DRIEN\"\n        },\n        {\n            \"id\": 4278,\n            \"name\": \"COT TUFAH\"\n        },\n        {\n            \"id\": 4279,\n            \"name\": \"ASAN SEULEUMAK\"\n        },\n        {\n            \"id\": 4280,\n            \"name\": \"TGK DIBANDA TEK-TEK\"\n        },\n        {\n            \"id\": 4281,\n            \"name\": \"SIMPANG\"\n        },\n        {\n            \"id\": 4282,\n            \"name\": \"KEUBON PIRAK\"\n        },\n        {\n            \"id\": 4283,\n            \"name\": \"BLANG ARA\"\n        },\n        {\n            \"id\": 4284,\n            \"name\": \"GEUREUGHEK\"\n        },\n        {\n            \"id\": 4285,\n            \"name\": \"BLANG PANTE\"\n        },\n        {\n            \"id\": 4286,\n            \"name\": \"LUENG\"\n        },\n        {\n            \"id\": 4287,\n            \"name\": \"TGK DIBANDA PIRAK\"\n        },\n        {\n            \"id\": 4288,\n            \"name\": \"GEULUMPANG PIRAK\"\n        },\n        {\n            \"id\": 4289,\n            \"name\": \"BLANG SIALET\"\n        },\n        {\n            \"id\": 4290,\n            \"name\": \"BLANG PAKU\"\n        },\n        {\n            \"id\": 4291,\n            \"name\": \"BLANG DALAM\"\n        },\n        {\n            \"id\": 4292,\n            \"name\": \"MEURIA SEULEUMAK\"\n        },\n        {\n            \"id\": 4293,\n            \"name\": \"LEUHONG\"\n        },\n        {\n            \"id\": 4294,\n            \"name\": \"TANJONG BEURUNYONG\"\n        },\n        {\n            \"id\": 4295,\n            \"name\": \"KEUDE PAYA BAKONG\"\n        },\n        {\n            \"id\": 4296,\n            \"name\": \"CEMPEUDAK\"\n        },\n        {\n            \"id\": 4297,\n            \"name\": \"PAYA MEUDRU\"\n        },\n        {\n            \"id\": 4298,\n            \"name\": \"MEUNYE SEULEUMAK\"\n        },\n        {\n            \"id\": 4299,\n            \"name\": \"ALUE LEUKOT\"\n        },\n        {\n            \"id\": 4300,\n            \"name\": \"PUCOK ALUE SEULEUMAK\"\n        },\n        {\n            \"id\": 4301,\n            \"name\": \"JOK\"\n        },\n        {\n            \"id\": 4302,\n            \"name\": \"TUNONG KRUENG\"\n        },\n        {\n            \"id\": 4303,\n            \"name\": \"TUMPOK MESJID\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Komoditas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{live}}/api/v1/komoditas",
+							"host": [
+								"{{live}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"komoditas"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Komoditas",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/komoditas",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"komoditas"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Mar 2021 16:52:28 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Mar 2021 16:52:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.3.25"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"name\": \"Padi\",\n            \"status\": \"Active\",\n            \"created_at\": \"2021-03-21 20:08:52\",\n            \"updated_at\": null\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Jagung\",\n            \"status\": \"Active\",\n            \"created_at\": \"2021-03-21 20:08:52\",\n            \"updated_at\": null\n        },\n        {\n            \"id\": 3,\n            \"name\": \"Kedelai\",\n            \"status\": \"Active\",\n            \"created_at\": \"2021-03-21 20:08:52\",\n            \"updated_at\": null\n        },\n        {\n            \"id\": 4,\n            \"name\": \"Ubi Kayu\",\n            \"status\": \"Active\",\n            \"created_at\": \"2021-03-21 20:08:52\",\n            \"updated_at\": null\n        },\n        {\n            \"id\": 5,\n            \"name\": \"Ubi Jalar\",\n            \"status\": \"Active\",\n            \"created_at\": \"2021-03-21 20:08:52\",\n            \"updated_at\": null\n        },\n        {\n            \"id\": 6,\n            \"name\": \"Kacang Tanah\",\n            \"status\": \"Active\",\n            \"created_at\": \"2021-03-21 20:08:52\",\n            \"updated_at\": null\n        },\n        {\n            \"id\": 7,\n            \"name\": \"Kacang Hijau\",\n            \"status\": \"Active\",\n            \"created_at\": \"2021-03-21 20:08:52\",\n            \"updated_at\": null\n        },\n        {\n            \"id\": 8,\n            \"name\": \"Porang\",\n            \"status\": \"Active\",\n            \"created_at\": \"2021-03-21 20:08:52\",\n            \"updated_at\": null\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Kriteria",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{live}}/api/v1/kriteria",
+							"host": [
+								"{{live}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"kriteria"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Kriteria",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/kriteria",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"kriteria"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Mar 2021 17:14:27 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Mar 2021 17:14:27 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.3.25"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"name\": \"Utama Nasional\",\n            \"status\": \"Active\",\n            \"created_at\": \"2021-03-21 20:13:51\",\n            \"updated_at\": null\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Utama Lokal\",\n            \"status\": \"Active\",\n            \"created_at\": \"2021-03-21 20:13:55\",\n            \"updated_at\": null\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "OPT",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{live}}/api/v1/opt?komoditas=1&kriteria=1",
+							"host": [
+								"{{live}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"opt"
+							],
+							"query": [
+								{
+									"key": "komoditas",
+									"value": "1",
+									"description": "ID Komoditas"
+								},
+								{
+									"key": "kriteria",
+									"value": "1",
+									"description": "ID Kriteria OPT"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OPT",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/opt?komoditas=1&kriteria=1",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"opt"
+									],
+									"query": [
+										{
+											"key": "komoditas",
+											"value": "1",
+											"description": "ID Komoditas"
+										},
+										{
+											"key": "kriteria",
+											"value": "1",
+											"description": "ID Kriteria OPT"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Mar 2021 17:21:23 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 22 Mar 2021 17:21:23 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.3.25"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"data\": [\n        {\n            \"id\": 20,\n            \"name\": \"Penggerek batang 1 (Scripophaga innotata, S. incertulas, Chilo suppressalis dan Sesamia inferens)\"\n        },\n        {\n            \"id\": 21,\n            \"name\": \"Wereng coklat (Nilaparvata lugens Stal)\"\n        },\n        {\n            \"id\": 22,\n            \"name\": \"Tikus (Rattus rattus argentiventer)\"\n        },\n        {\n            \"id\": 23,\n            \"name\": \"Blas (Magnoporthe oryzae)\"\n        },\n        {\n            \"id\": 24,\n            \"name\": \"Bakteri hawar daun/BLB/Kresek (Xanthomonas campestris pv. Oryzae)\"\n        },\n        {\n            \"id\": 25,\n            \"name\": \"Tungro (virus)\"\n        },\n        {\n            \"id\": 26,\n            \"name\": \"Kerdil rumput (virus)\"\n        },\n        {\n            \"id\": 27,\n            \"name\": \"Kerdil hampa (virus)\"\n        },\n        {\n            \"id\": 192,\n            \"name\": \"OPT Lainnya\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Whatsapp",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{live}}/api/v1/whatsapp",
+							"host": [
+								"{{live}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"whatsapp"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Whatsapp",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{live}}/api/v1/whatsapp",
+									"host": [
+										"{{live}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"whatsapp"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 29 Mar 2021 02:21:38 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache/2.4.6 (CentOS) PHP/7.3.25"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.3.25"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Content-Length",
+									"value": "41"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"data\": \"62816708705\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Laporan OPT",
+			"item": [
+				{
+					"name": "Store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user",
+									"value": "1",
+									"description": "Wajib \nFormat: JPG, JPEG, PNG\nMax: 10240Mb",
+									"type": "text"
+								},
+								{
+									"key": "bulan",
+									"value": "3",
+									"description": "Wajib\nUser ID",
+									"type": "text"
+								},
+								{
+									"key": "tahun",
+									"value": "2021",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "lat",
+									"value": "-7.01583338",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "lng",
+									"value": "107.55722046",
+									"description": "Wajib \nLatitude",
+									"type": "text"
+								},
+								{
+									"key": "provinsi",
+									"value": "1",
+									"description": "Wajib\nLongtitude",
+									"type": "text"
+								},
+								{
+									"key": "kabupaten",
+									"value": "1",
+									"description": "Wajib\nID Provinsi",
+									"type": "text"
+								},
+								{
+									"key": "kecamatan",
+									"value": "1",
+									"description": "Wajib\nID Kabupaten",
+									"type": "text"
+								},
+								{
+									"key": "desa",
+									"value": "1",
+									"description": "Wajib\nID Kecamatan",
+									"type": "text"
+								},
+								{
+									"key": "komoditas",
+									"value": "1",
+									"description": "Wajib\nID Desa",
+									"type": "text"
+								},
+								{
+									"key": "varietas",
+									"value": "Apel",
+									"description": "Wajib\nID Komoditas",
+									"type": "text"
+								},
+								{
+									"key": "umur",
+									"value": "31",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas",
+									"value": "32.31",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "kriteria",
+									"value": "1",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "opt",
+									"value": "1",
+									"description": "Wajib\nID Kriteria OPT",
+									"type": "text"
+								},
+								{
+									"key": "periode",
+									"value": "Periode",
+									"description": "Wajib\nID OPT",
+									"type": "text"
+								},
+								{
+									"key": "sisa_serangan_ringan",
+									"value": "12.2",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_serangan_sedang",
+									"value": "22.2",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_serangan_berat",
+									"value": "32.2",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_serangan_puso",
+									"value": "33.23",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_serangan_jumlah",
+									"value": "32.1",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_serangan_luas_terkendali",
+									"value": "32.12",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_serangan_luas_panen",
+									"value": "12.1",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_serangan_ringan",
+									"value": "44.23",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_serangan_sedang",
+									"value": "89.1",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_serangan_berat",
+									"value": "31.12",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_serangan_puso",
+									"value": "312.2",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_serangan_jumlah",
+									"value": "32.13",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_pengendalian_kimia",
+									"value": "10.2",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_pengendalian_hayati",
+									"value": "11.2",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_pengendalian_eradiksi",
+									"value": "12.2",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_pengendalian_cara_lain",
+									"value": "13.2",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_pengendalian_jumlah",
+									"value": "14.2",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_keadaan_ringan",
+									"value": "15.2",
+									"description": "Waijb",
+									"type": "text"
+								},
+								{
+									"key": "luas_keadaan_sedang",
+									"value": "16.2",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_keadaan_berat",
+									"value": "17.2",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_keadaan_puso",
+									"value": "18.2",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_keadaan_jumlah",
+									"value": "19.2",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "periode_okmar_asep",
+									"value": "OKMAR",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "th_mt",
+									"value": "2020",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "mt_mk_mh",
+									"value": "MH",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "subround",
+									"value": "I",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "visited_at",
+									"value": "2020-01-01",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "photo",
+									"description": "Wajib \nFormat: JPG, JPEG, PNG\nMax: 10240Mb",
+									"type": "file",
+									"src": "/C:/Users/rdh/Pictures/bugs3.PNG"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{live}}/api/v1/report-opt/store",
+							"host": [
+								"{{live}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"report-opt",
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{live}}/api/v1/report-opt/detail?id=1",
+							"host": [
+								"{{live}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"report-opt",
+								"detail"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "ID Laporan"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Detail",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{live}}/api/v1/report-opt/detail?id=1",
+									"host": [
+										"{{live}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"report-opt",
+										"detail"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "1",
+											"description": "ID Laporan"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Mon, 29 Mar 2021 02:12:02 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache/2.4.6 (CentOS) PHP/7.3.25"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.3.25"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "56"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1201"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"id\": 1,\n        \"photo\": \"upload/opt/2021/03/53869_2_1.png\",\n        \"provinsi\": {\n            \"id\": 1,\n            \"name\": \"ACEH\"\n        },\n        \"kabupaten\": {\n            \"id\": 1,\n            \"name\": \"SIMEULUE\"\n        },\n        \"kecamatan\": {\n            \"id\": 1,\n            \"name\": \"TEUPAH SELATAN\"\n        },\n        \"desa\": {\n            \"id\": 2,\n            \"name\": \"LABUHAN BAJAU\"\n        },\n        \"komoditas\": {\n            \"id\": 2,\n            \"name\": \"Jagung\"\n        },\n        \"varietas\": \"Gandum\",\n        \"umur\": 25,\n        \"luas\": 99,\n        \"kriteria\": {\n            \"id\": 2,\n            \"name\": \"Utama Lokal\"\n        },\n        \"opt\": {\n            \"id\": 2,\n            \"name\": \"Tikus\"\n        },\n        \"periode\": \"update\",\n        \"sisa_serangan_ringan\": \"1.10\",\n        \"sisa_serangan_sedang\": \"2.20\",\n        \"sisa_serangan_berat\": \"3.30\",\n        \"sisa_serangan_puso\": \"13.13\",\n        \"sisa_serangan_jumlah\": \"4.40\",\n        \"sisa_serangan_terkendali\": \"5.50\",\n        \"sisa_serangan_panen\": \"6.60\",\n        \"luas_tambah_serangan_ringan\": \"7.70\",\n        \"luas_tambah_serangan_sedang\": \"8.80\",\n        \"luas_tambah_serangan_berat\": \"9.90\",\n        \"luas_tambah_serangan_puso\": \"10.10\",\n        \"luas_tambah_serangan_jumlah\": \"11.11\",\n        \"luas_pengendalian_kimia\": \"10.22\",\n        \"luas_pengendalian_hayati\": \"11.22\",\n        \"luas_pengendalian_eradiksi\": \"12.22\",\n        \"luas_pengendalian_cara_lain\": \"13.22\",\n        \"luas_pengendalian_jumlah\": \"14.22\",\n        \"luas_keadaan_ringan\": \"15.22\",\n        \"luas_keadaan_sedang\": \"16.22\",\n        \"luas_keadaan_berat\": \"17.22\",\n        \"luas_keadaan_puso\": \"18.22\",\n        \"luas_keadaan_jumlah\": \"19.22\",\n        \"periode_okmar_asep\": \"ASEP\",\n        \"th_mt\": \"2020\",\n        \"mt_mk_mh\": \"2\",\n        \"subround\": \"3\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "ID Laporan OPT",
+									"type": "text"
+								},
+								{
+									"key": "photo",
+									"description": "Wajib",
+									"type": "file",
+									"src": "/C:/Users/rdh/Pictures/2_1.png"
+								},
+								{
+									"key": "bulan",
+									"value": "2",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "tahun",
+									"value": "2021",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "lat",
+									"value": "-6.01583338",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "lng",
+									"value": "106.55722046",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "provinsi",
+									"value": "2",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "kabupaten",
+									"value": "2",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "kecamatan",
+									"value": "2",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "desa",
+									"value": "2",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "komoditas",
+									"value": "2",
+									"description": "wajib\nID Komoditas",
+									"type": "text"
+								},
+								{
+									"key": "varietas",
+									"value": "Gandum",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "umur",
+									"value": "25",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas",
+									"value": "99",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "kriteria",
+									"value": "2",
+									"description": "Wajib\nID Kriteria",
+									"type": "text"
+								},
+								{
+									"key": "opt",
+									"value": "2",
+									"description": "Wajib\nID OPT",
+									"type": "text"
+								},
+								{
+									"key": "periode",
+									"value": "update",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_serangan_ringan",
+									"value": "1.1",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_serangan_sedang",
+									"value": "2.2",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_serangan_berat",
+									"value": "3.3",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_serangan_puso",
+									"value": "13.13",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_serangan_jumlah",
+									"value": "4.4",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_serangan_luas_terkendali",
+									"value": "5.5",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_serangan_luas_panen",
+									"value": "6.6",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_serangan_ringan",
+									"value": "7.7",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_serangan_sedang",
+									"value": "8.8",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_serangan_berat",
+									"value": "9.9",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_serangan_puso",
+									"value": "10.10",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_serangan_jumlah",
+									"value": "11.11",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_pengendalian_kimia",
+									"value": "10.22",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_pengendalian_hayati",
+									"value": "11.22",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_pengendalian_eradiksi",
+									"value": "12.22",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_pengendalian_cara_lain",
+									"value": "13.22",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_pengendalian_jumlah",
+									"value": "14.22",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_keadaan_ringan",
+									"value": "15.22",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_keadaan_sedang",
+									"value": "16.22",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_keadaan_berat",
+									"value": "17.22",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_keadaan_puso",
+									"value": "18.22",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_keadaan_jumlah",
+									"value": "19.22",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "periode_okmar_asep",
+									"value": "ASEP",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "th_mt",
+									"value": "2020",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "mt_mk_mh",
+									"value": "2",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "subround",
+									"value": "3",
+									"description": "Wajib",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{live}}/api/v1/report-opt/update",
+							"host": [
+								"{{live}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"report-opt",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Laporan DPI Banjir",
+			"item": [
+				{
+					"name": "Store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "photo",
+									"description": "Wajib",
+									"type": "file",
+									"src": "/C:/Users/rdh/Pictures/bugs3.PNG"
+								},
+								{
+									"key": "user",
+									"value": "1",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "bulan",
+									"value": "5",
+									"description": "Wajib\nID User",
+									"type": "text"
+								},
+								{
+									"key": "tahun",
+									"value": "2021",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "lat",
+									"value": "-7.01583338",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "lng",
+									"value": "107.55722046",
+									"description": "Wajib\nLattitude dari photo",
+									"type": "text"
+								},
+								{
+									"key": "provinsi",
+									"value": "1",
+									"description": "Wajib\nLongtitude dari photo",
+									"type": "text"
+								},
+								{
+									"key": "kabupaten",
+									"value": "1",
+									"description": "Wajib\nID Provinsi",
+									"type": "text"
+								},
+								{
+									"key": "kecamatan",
+									"value": "1",
+									"description": "Wajib\nID Kabupaten",
+									"type": "text"
+								},
+								{
+									"key": "desa",
+									"value": "1",
+									"description": "Wajib\nID Kecamatan",
+									"type": "text"
+								},
+								{
+									"key": "komoditas",
+									"value": "1",
+									"description": "Wajib\nID Desa",
+									"type": "text"
+								},
+								{
+									"key": "varietas",
+									"value": "Apel",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "umur_persemaian",
+									"value": "1",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_persemaian",
+									"value": "1",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "umur_tanam",
+									"value": "1",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tanam",
+									"value": "1",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "periode",
+									"value": "2020",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "curah_hujan",
+									"value": "1",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "penyebab",
+									"value": "air meluap",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "tinggi_banjir",
+									"value": "10",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "penanganan",
+									"value": "Pompa Air",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena",
+									"value": "2",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena_menjadi_puso",
+									"value": "3",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena_menjadi_surut",
+									"value": "4",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_terkena",
+									"value": "8",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_puso",
+									"value": "9",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_surut",
+									"value": "10",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_terkena",
+									"value": "5",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_puso",
+									"value": "6",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_surut",
+									"value": "12",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "periode_okmar_asep",
+									"value": "OKMAR",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "th_mt",
+									"value": "2020",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "mt_mk_mh",
+									"value": "MH",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "subround",
+									"value": "I",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "visited_at",
+									"value": "2021-01-01",
+									"description": "Wajib",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{live}}/api/v1/report-dpi/banjir/store",
+							"host": [
+								"{{live}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"report-dpi",
+								"banjir",
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{live}}/api/v1/report-dpi/banjir/detail?id=3",
+							"host": [
+								"{{live}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"report-dpi",
+								"banjir",
+								"detail"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "3",
+									"description": "Wajib\nID Laporan "
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Detail",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{live}}/api/v1/report-dpi/banjir/detail?id=1",
+									"host": [
+										"{{live}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"report-dpi",
+										"banjir",
+										"detail"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "1",
+											"description": "Wajib\nID Laporan "
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 25 Mar 2021 10:01:07 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache/2.4.6 (CentOS) PHP/7.3.25"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.3.25"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								},
+								{
+									"key": "Content-Length",
+									"value": "891"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"id\": 1,\n        \"photo\": \"upload/dpi/banjir2021/03/55729_bugs3.PNG\",\n        \"bulan\": 1,\n        \"tahun\": \"2021\",\n        \"lat\": \"-7.01583338\",\n        \"lng\": \"107.55722046\",\n        \"provinsi\": {\n            \"id\": 1,\n            \"name\": \"ACEH\"\n        },\n        \"kabupaten\": {\n            \"id\": 1,\n            \"name\": \"SIMEULUE\"\n        },\n        \"kecamatan\": {\n            \"id\": 1,\n            \"name\": \"TEUPAH SELATAN\"\n        },\n        \"desa\": {\n            \"id\": 1,\n            \"name\": \"LATIUNG\"\n        },\n        \"komoditas\": {\n            \"id\": 1,\n            \"name\": \"Padi\"\n        },\n        \"varietas\": \"Apel\",\n        \"persemaian\": {\n            \"umur\": 1,\n            \"luas\": 1\n        },\n        \"tanam\": {\n            \"umur\": 1,\n            \"luas\": 1\n        },\n        \"periode\": \"2020\",\n        \"curah_hujan\": \"1.00\",\n        \"penyebab\": \"air meluap\",\n        \"tinggi_banjir\": 10,\n        \"penanganan\": \"Pompa Air\",\n        \"sisa_terkena\": \"2.00\",\n        \"sisa_terkena_menjadi_puso\": \"3.00\",\n        \"sisa_terkena_menjadi_surut\": \"4.00\",\n        \"luas_tambah_terkena\": \"8.00\",\n        \"luas_tambah_puso\": \"9.00\",\n        \"luas_tambah_surut\": \"10.00\",\n        \"keadaan_terkena\": \"5.00\",\n        \"keadaan_puso\": \"6.00\",\n        \"keadaan_surut\": \"11.00\",\n        \"periode_okmar_asep\": \"7\",\n        \"th_mt\": \"th\",\n        \"mt_mk_mh\": \"mt\",\n        \"subround\": \"1\",\n        \"status\": \"Pending\",\n        \"visited_at\": \"01/01/2021\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "3",
+									"description": "Wajib \nID Laporan",
+									"type": "text"
+								},
+								{
+									"key": "photo",
+									"description": "optional",
+									"type": "file",
+									"src": "/C:/Users/rdh/Pictures/Rectangle 15.png"
+								},
+								{
+									"key": "bulan",
+									"value": "11",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "tahun",
+									"value": "2020",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "lat",
+									"value": "-7.01583338",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "lng",
+									"value": "107.55722046",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "provinsi",
+									"value": "1",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "kabupaten",
+									"value": "1",
+									"description": "Wajib\nID Provinsi",
+									"type": "text"
+								},
+								{
+									"key": "kecamatan",
+									"value": "1",
+									"description": "Wajib ",
+									"type": "text"
+								},
+								{
+									"key": "desa",
+									"value": "1",
+									"description": "Wajib\nID Kecamatan",
+									"type": "text"
+								},
+								{
+									"key": "komoditas",
+									"value": "2",
+									"description": "Wajib\nID Desa",
+									"type": "text"
+								},
+								{
+									"key": "varietas",
+									"value": "Gandum",
+									"description": "Wajib\nID Komoditas\n",
+									"type": "text"
+								},
+								{
+									"key": "umur_persemaian",
+									"value": "11",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_persemaian",
+									"value": "2",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "umur_tanam",
+									"value": "3",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tanam",
+									"value": "4",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "periode",
+									"value": "2021",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "curah_hujan",
+									"value": "1.1",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "penyebab",
+									"value": "air meluap",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "tinggi_banjir",
+									"value": "12",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "penanganan",
+									"value": "Pompa Air",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena",
+									"value": "2.2",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena_menjadi_puso",
+									"value": "3.3",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena_menjadi_surut",
+									"value": "4.4",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_terkena",
+									"value": "8.8",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_puso",
+									"value": "9.9",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_surut",
+									"value": "10.10",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_terkena",
+									"value": "5.5",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_puso",
+									"value": "6.6",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_surut",
+									"value": "11.11",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "periode_okmar_asep",
+									"value": "ASEP",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "th_mt",
+									"value": "2020-2021",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "mt_mk_mh",
+									"value": "MK",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "subround",
+									"value": "II",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "visited_at",
+									"value": "2021-03-01",
+									"description": "wajib",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{live}}/api/v1/report-dpi/banjir/update",
+							"host": [
+								"{{live}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"report-dpi",
+								"banjir",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Laporan DPI Bencana",
+			"item": [
+				{
+					"name": "Store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "photo",
+									"description": "Wajib",
+									"type": "file",
+									"src": "/C:/Users/rdh/Pictures/bugs3.PNG"
+								},
+								{
+									"key": "user",
+									"value": "1",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "bulan",
+									"value": "12",
+									"description": "Wajib\nID User",
+									"type": "text"
+								},
+								{
+									"key": "tahun",
+									"value": "2020",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "lat",
+									"value": "-7.01583338",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "lng",
+									"value": "107.55722046",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "provinsi",
+									"value": "1",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "kabupaten",
+									"value": "1",
+									"description": "Wajib\nID Provinsi",
+									"type": "text"
+								},
+								{
+									"key": "kecamatan",
+									"value": "1",
+									"description": "Wajib\nID Kabupaten",
+									"type": "text"
+								},
+								{
+									"key": "desa",
+									"value": "1",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "komoditas",
+									"value": "1",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "varietas",
+									"value": "Jagung",
+									"description": "Wajib\nID Komoditas",
+									"type": "text"
+								},
+								{
+									"key": "umur_persemaian",
+									"value": "10",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_persemaian",
+									"value": "12",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "umur_tanam",
+									"value": "13",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tanam",
+									"value": "14",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "periode",
+									"value": "2020",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "penyebab",
+									"value": "gempa",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "penanganan",
+									"value": "bantuan",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena",
+									"value": "1",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena_menjadi_puso",
+									"value": "2",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena_menjadi_pulih",
+									"value": "0.1",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_terkena",
+									"value": "3",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_puso",
+									"value": "4",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_pulih",
+									"value": "9",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_terkena",
+									"value": "5",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_puso",
+									"value": "6",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_pulih",
+									"value": "7",
+									"description": "Wajib\n",
+									"type": "text"
+								},
+								{
+									"key": "periode_okmar_asep",
+									"value": "OKMAR",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "th_mt",
+									"value": "2020",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "mt_mk_mh",
+									"value": "MH",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "subround",
+									"value": "I",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "visited_at",
+									"value": "2020-01-01",
+									"description": "wajib",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{live}}/api/v1/report-dpi/bencana/store",
+							"host": [
+								"{{live}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"report-dpi",
+								"bencana",
+								"store"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Store",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "photo",
+											"description": "Wajib",
+											"type": "file",
+											"src": "/C:/Users/rdh/Pictures/bugs3.PNG"
+										},
+										{
+											"key": "user",
+											"value": "1",
+											"description": "Wajib\nID User",
+											"type": "text"
+										},
+										{
+											"key": "bulan",
+											"value": "1",
+											"description": "Wajib",
+											"type": "text"
+										},
+										{
+											"key": "tahun",
+											"value": "2020",
+											"description": "Wajib",
+											"type": "text"
+										},
+										{
+											"key": "lat",
+											"value": "-7.01583338",
+											"description": "Wajib",
+											"type": "text"
+										},
+										{
+											"key": "lng",
+											"value": "107.55722046",
+											"description": "Wajib",
+											"type": "text"
+										},
+										{
+											"key": "provinsi",
+											"value": "1",
+											"description": "Wajib\nID Provinsi",
+											"type": "text"
+										},
+										{
+											"key": "kabupaten",
+											"value": "1",
+											"description": "Wajib\nID Kabupaten",
+											"type": "text"
+										},
+										{
+											"key": "kecamatan",
+											"value": "1",
+											"description": "Wajib",
+											"type": "text"
+										},
+										{
+											"key": "desa",
+											"value": "1",
+											"description": "Wajib",
+											"type": "text"
+										},
+										{
+											"key": "komoditas",
+											"value": "1",
+											"description": "Wajib\nID Komoditas",
+											"type": "text"
+										},
+										{
+											"key": "varietas",
+											"value": "Jagung",
+											"description": "Wajib",
+											"type": "text"
+										},
+										{
+											"key": "umur_persemaian",
+											"value": "10",
+											"description": "Wajib",
+											"type": "text"
+										},
+										{
+											"key": "luas_persemaian",
+											"value": "12",
+											"description": "Wajib",
+											"type": "text"
+										},
+										{
+											"key": "umur_tanam",
+											"value": "13",
+											"description": "Wajib",
+											"type": "text"
+										},
+										{
+											"key": "luas_tanam",
+											"value": "14",
+											"description": "Wajib",
+											"type": "text"
+										},
+										{
+											"key": "periode",
+											"value": "2020",
+											"description": "Wajib",
+											"type": "text"
+										},
+										{
+											"key": "penyebab",
+											"value": "gempa",
+											"description": "Wajib",
+											"type": "text"
+										},
+										{
+											"key": "penanganan",
+											"value": "bantuan",
+											"description": "Wajib",
+											"type": "text"
+										},
+										{
+											"key": "sisa_terkena",
+											"value": "1",
+											"description": "Wajib",
+											"type": "text"
+										},
+										{
+											"key": "sisa_terkena_menjadi_puso",
+											"value": "2",
+											"description": "Wajib",
+											"type": "text"
+										},
+										{
+											"key": "sisa_terkena_menjadi_pulih",
+											"value": "0.1",
+											"description": "Wajib",
+											"type": "text"
+										},
+										{
+											"key": "luas_tambah_terkena",
+											"value": "3",
+											"description": "Wajib",
+											"type": "text"
+										},
+										{
+											"key": "luas_tambah_puso",
+											"value": "4",
+											"description": "Wajib",
+											"type": "text"
+										},
+										{
+											"key": "luas_tambah_pulih",
+											"value": "9",
+											"description": "Wajib",
+											"type": "text"
+										},
+										{
+											"key": "keadaan_terkena",
+											"value": "5",
+											"description": "Wajib",
+											"type": "text"
+										},
+										{
+											"key": "keadaan_puso",
+											"value": "6",
+											"description": "Wajib\n",
+											"type": "text"
+										},
+										{
+											"key": "keadaan_pulih",
+											"value": "7",
+											"description": "Wajib",
+											"type": "text"
+										},
+										{
+											"key": "periode_okmar_asep",
+											"value": "2020",
+											"description": "Wajib",
+											"type": "text"
+										},
+										{
+											"key": "th_mt",
+											"value": "2020-2021",
+											"description": "Wajib",
+											"type": "text"
+										},
+										{
+											"key": "mt_mk_mh",
+											"value": "2",
+											"description": "Wajib",
+											"type": "text"
+										},
+										{
+											"key": "subround",
+											"value": "1",
+											"description": "Wajib",
+											"type": "text"
+										},
+										{
+											"key": "visited_at",
+											"value": "2020-01-01",
+											"description": "Wajib",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/report-dpi/bencana/store",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"report-dpi",
+										"bencana",
+										"store"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 25 Mar 2021 12:31:04 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 25 Mar 2021 12:31:04 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.3.25"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"message\": \"Laporan DPI Bencana Berhasil Ditambahkan.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{live}}/api/v1/report-dpi/bencana/detail?id=4",
+							"host": [
+								"{{live}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"report-dpi",
+								"bencana",
+								"detail"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "4",
+									"description": "ID Laporan"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Detail",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{live}}/api/v1/report-dpi/bencana/detail?id=1",
+									"host": [
+										"{{live}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"report-dpi",
+										"bencana",
+										"detail"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "1",
+											"description": "ID Laporan"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 25 Mar 2021 15:35:29 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache/2.4.6 (CentOS) PHP/7.3.25"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.3.25"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								},
+								{
+									"key": "Content-Length",
+									"value": "858"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"id\": 1,\n        \"photo\": \"upload/dpi/bencana2021/03/59796_bugs3.PNG\",\n        \"bulan\": 1,\n        \"tahun\": \"2020\",\n        \"lat\": \"-7.01583338\",\n        \"lng\": \"107.55722046\",\n        \"provinsi\": {\n            \"id\": 1,\n            \"name\": \"ACEH\"\n        },\n        \"kabupaten\": {\n            \"id\": 1,\n            \"name\": \"SIMEULUE\"\n        },\n        \"kecamatan\": {\n            \"id\": 1,\n            \"name\": \"TEUPAH SELATAN\"\n        },\n        \"desa\": {\n            \"id\": 1,\n            \"name\": \"LATIUNG\"\n        },\n        \"komoditas\": {\n            \"id\": 1,\n            \"name\": \"Padi\"\n        },\n        \"varietas\": \"Jagung\",\n        \"persemaian\": {\n            \"umur\": 10,\n            \"luas\": 12\n        },\n        \"tanam\": {\n            \"umur\": 13,\n            \"luas\": 14\n        },\n        \"periode\": \"2020\",\n        \"penyebab\": \"gempa\",\n        \"penanganan\": \"bantuan\",\n        \"sisa_terkena\": \"1.00\",\n        \"sisa_terkena_menjadi_puso\": \"2.00\",\n        \"sisa_terkena_menjadi_pulih\": \"0.10\",\n        \"luas_tambah_terkena\": \"3.00\",\n        \"luas_tambah_puso\": \"4.00\",\n        \"luas_tambah_pulih\": \"9.00\",\n        \"keadaan_terkena\": \"5.00\",\n        \"keadaan_puso\": \"6.00\",\n        \"keadaan_pulih\": \"7.00\",\n        \"periode_okmar_asep\": \"2020\",\n        \"th_mt\": \"2020-2021\",\n        \"mt_mk_mh\": \"2\",\n        \"subround\": \"1\",\n        \"status\": \"Pending\",\n        \"visited_at\": \"01/01/2020\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "4",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "bulan",
+									"value": "4",
+									"description": "optional",
+									"type": "text"
+								},
+								{
+									"key": "tahun",
+									"value": "2021",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "lat",
+									"value": "-7.01583338",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "lng",
+									"value": "107.55722046",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "provinsi",
+									"value": "2",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "kabupaten",
+									"value": "2",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "kecamatan",
+									"value": "2",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "desa",
+									"value": "2",
+									"description": "Wajiib",
+									"type": "text"
+								},
+								{
+									"key": "komoditas",
+									"value": "2",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "varietas",
+									"value": "Gandum",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "umur_persemaian",
+									"value": "11",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_persemaian",
+									"value": "22",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "umur_tanam",
+									"value": "3",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tanam",
+									"value": "24",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "periode",
+									"value": "2021",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "penyebab",
+									"value": "gempa bumi",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "penanganan",
+									"value": "bantuan kementerian",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena",
+									"value": "1.1",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena_menjadi_puso",
+									"value": "2.2",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena_menjadi_pulih",
+									"value": "0.11",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_terkena",
+									"value": "3.3",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_puso",
+									"value": "4.4",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_pulih",
+									"value": "9.9",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_terkena",
+									"value": "5.5",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_puso",
+									"value": "6.6",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_pulih",
+									"value": "7.7",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "periode_okmar_asep",
+									"value": "ASEP",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "th_mt",
+									"value": "2020-2021",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "mt_mk_mh",
+									"value": "MK",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "subround",
+									"value": "II",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "visited_at",
+									"value": "2020-05-01",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "photo",
+									"description": "optional",
+									"type": "file",
+									"src": "/C:/Users/rdh/Pictures/blue-cirlce.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{live}}/api/v1/report-dpi/bencana/update",
+							"host": [
+								"{{live}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"report-dpi",
+								"bencana",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Laporan DPI Kekeringan",
+			"item": [
+				{
+					"name": "Store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "photo",
+									"description": "Wajib",
+									"type": "file",
+									"src": "/C:/Users/rdh/Pictures/3_1.png"
+								},
+								{
+									"key": "user",
+									"value": "1",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "bulan",
+									"value": "1",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "tahun",
+									"value": "2020",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "lat",
+									"value": "-7.01583338",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "lng",
+									"value": "107.55722046",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "provinsi",
+									"value": "1",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "kabupaten",
+									"value": "1",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "kecamatan",
+									"value": "1",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "desa",
+									"value": "1",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "komoditas",
+									"value": "1",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "varietas",
+									"value": "Jagung",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "umur_persemaian",
+									"value": "1",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_persemaian",
+									"value": "2",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "umur_tanam",
+									"value": "3",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tanam",
+									"value": "4",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "periode",
+									"value": "5",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "penyebab",
+									"value": "Kemaraun",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "penanganan",
+									"value": "Perairan",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena_menjadi_ringan",
+									"value": "6",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena_menjadi_sedang",
+									"value": "7",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena_menjadi_berat",
+									"value": "8",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena_menjadi_puso",
+									"value": "23",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena_menjadi_pulih",
+									"value": "9",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena_jumlah",
+									"value": "10",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_ringan",
+									"value": "11",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_sedang",
+									"value": "12",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_berat",
+									"value": "14",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_puso",
+									"value": "15",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_pulih",
+									"value": "16",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_jumlah",
+									"value": "17",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_ringan",
+									"value": "18",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_sedang",
+									"value": "19",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_berat",
+									"value": "20",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_puso",
+									"value": "21",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_pulih",
+									"value": "22",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_jumlah",
+									"value": "23",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "periode_okmar_asep",
+									"value": "OKMAR",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "th_mt",
+									"value": "2020",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "mt_mk_mh",
+									"value": "MH",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "subround",
+									"value": "I",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "visited_at",
+									"value": "2020-01-01",
+									"description": "wajib",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{live}}/api/v1/report-dpi/kekeringan/store",
+							"host": [
+								"{{live}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"report-dpi",
+								"kekeringan",
+								"store"
+							],
+							"query": [
+								{
+									"key": "sds",
+									"value": "",
+									"description": "wajib",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{live}}/api/v1/report-dpi/kekeringan/detail?id=5",
+							"host": [
+								"{{live}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"report-dpi",
+								"kekeringan",
+								"detail"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "5",
+									"description": "wajib"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Detail",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{live}}/api/v1/report-dpi/kekeringan/detail?id=1",
+									"host": [
+										"{{live}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"report-dpi",
+										"kekeringan",
+										"detail"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "1",
+											"description": "wajib"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sun, 28 Mar 2021 23:57:44 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache/2.4.6 (CentOS) PHP/7.3.25"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.3.25"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "54"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1140"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5, max=98"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"id\": 1,\n        \"photo\": \"upload/dpi/kekeringan2021/03/56023_3_1.png\",\n        \"bulan\": 1,\n        \"tahun\": \"2020\",\n        \"lat\": \"-7.01583338\",\n        \"lng\": \"107.55722046\",\n        \"provinsi\": {\n            \"id\": 1,\n            \"name\": \"ACEH\"\n        },\n        \"kabupaten\": {\n            \"id\": 1,\n            \"name\": \"SIMEULUE\"\n        },\n        \"kecamatan\": {\n            \"id\": 1,\n            \"name\": \"TEUPAH SELATAN\"\n        },\n        \"desa\": {\n            \"id\": 1,\n            \"name\": \"LATIUNG\"\n        },\n        \"komoditas\": {\n            \"id\": 1,\n            \"name\": \"Padi\"\n        },\n        \"varietas\": \"Jagung\",\n        \"persemaian\": {\n            \"umur\": 1,\n            \"luas\": 2\n        },\n        \"tanam\": {\n            \"umur\": 3,\n            \"luas\": 4\n        },\n        \"periode\": \"5\",\n        \"penyebab\": \"Kemaraun\",\n        \"penanganan\": \"Perairan\",\n        \"sisa_terkena_menjadi_ringan\": \"6.00\",\n        \"sisa_terkena_menjadi_sedang\": \"7.00\",\n        \"sisa_terkena_menjadi_berat\": \"8.00\",\n        \"sisa_terkena_menjadi_puso\": \"23.00\",\n        \"sisa_terkena_menjadi_pulih\": \"9.00\",\n        \"sisa_terkena_jumlah\": \"10.00\",\n        \"luas_tambah_ringan\": \"11.00\",\n        \"luas_tambah_sedang\": \"12.00\",\n        \"luas_tambah_berat\": \"14.00\",\n        \"luas_tambah_puso\": \"15.00\",\n        \"luas_tambah_pulih\": \"16.00\",\n        \"luas_tambah_jumlah\": \"17.00\",\n        \"keadaan_ringan\": \"18.00\",\n        \"keadaan_sedang\": \"19.00\",\n        \"keadaan_berat\": \"20.00\",\n        \"keadaan_puso\": \"21.00\",\n        \"keadaan_pulih\": \"22.00\",\n        \"keadaan_jumlah\": \"23.00\",\n        \"periode_okmar_asep\": \"OKMAR\",\n        \"th_mt\": \"2019/2020\",\n        \"mt_mk_mh\": \"MH\",\n        \"subround\": \"I\",\n        \"status\": \"Pending\",\n        \"visited_at\": \"01/01/20\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "5",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "photo",
+									"description": "optional",
+									"type": "file",
+									"src": "/C:/Users/rdh/Pictures/2_1.png"
+								},
+								{
+									"key": "bulan",
+									"value": "12",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "tahun",
+									"value": "2021",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "lat",
+									"value": "-7.01583338",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "lng",
+									"value": "107.55722046",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "provinsi",
+									"value": "1",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "kabupaten",
+									"value": "1",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "kecamatan",
+									"value": "1",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "desa",
+									"value": "2",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "komoditas",
+									"value": "2",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "varietas",
+									"value": "Gandum",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "umur_persemaian",
+									"value": "11",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_persemaian",
+									"value": "22",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "umur_tanam",
+									"value": "33",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tanam",
+									"value": "43",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "periode",
+									"value": "55",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "penyebab",
+									"value": "Kemarau",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "penanganan",
+									"value": "Perairan Manual",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena_menjadi_ringan",
+									"value": "6.6",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena_menjadi_sedang",
+									"value": "7.7",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena_menjadi_berat",
+									"value": "8.8",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena_menjadi_puso",
+									"value": "23.23",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena_menjadi_pulih",
+									"value": "9.9",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena_jumlah",
+									"value": "10.10",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_ringan",
+									"value": "11.11",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_sedang",
+									"value": "12.12",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_berat",
+									"value": "14.14",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_puso",
+									"value": "15.15",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_pulih",
+									"value": "16.16",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_jumlah",
+									"value": "17.17",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_ringan",
+									"value": "18.18",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_sedang",
+									"value": "19.19",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_berat",
+									"value": "20.20",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_puso",
+									"value": "21.21",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_pulih",
+									"value": "22.22",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_jumlah",
+									"value": "23.23",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "periode_okmar_asep",
+									"value": "ASEP",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "th_mt",
+									"value": "2020-2021",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "mt_mk_mh",
+									"value": "MK",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "subround",
+									"value": "II",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "visited_at",
+									"value": "2021-01-01",
+									"description": "wajib",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{live}}/api/v1/report-dpi/kekeringan/update",
+							"host": [
+								"{{live}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"report-dpi",
+								"kekeringan",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Laporan DPI Gangguan Fisiologis",
+			"item": [
+				{
+					"name": "Store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "photo",
+									"description": "wajib",
+									"type": "file",
+									"src": "/C:/Users/rdh/Pictures/2_1.png"
+								},
+								{
+									"key": "user",
+									"value": "1",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "bulan",
+									"value": "1",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "tahun",
+									"value": "2020",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "lat",
+									"value": "-7.01583338",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "lng",
+									"value": "107.55722046",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "provinsi",
+									"value": "1",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "kabupaten",
+									"value": "1",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "kecamatan",
+									"value": "1",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "desa",
+									"value": "1",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "komoditas",
+									"value": "1",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "varietas",
+									"value": "Jagung",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "umur_persemaian",
+									"value": "1",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_persemaian",
+									"value": "2",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "umur_tanam",
+									"value": "3",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tanam",
+									"value": "4",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "periode",
+									"value": "5",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "penyebab",
+									"value": "Kemaraun",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "penanganan",
+									"value": "Perairan",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena_menjadi_ringan",
+									"value": "6",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena_menjadi_sedang",
+									"value": "7",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena_menjadi_berat",
+									"value": "8",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena_menjadi_puso",
+									"value": "23",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena_menjadi_pulih",
+									"value": "9",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena_jumlah",
+									"value": "10",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_ringan",
+									"value": "11",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_sedang",
+									"value": "12",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_berat",
+									"value": "14",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_puso",
+									"value": "15",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_pulih",
+									"value": "16",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_jumlah",
+									"value": "17",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_ringan",
+									"value": "18",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_sedang",
+									"value": "19",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_berat",
+									"value": "20",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_puso",
+									"value": "21",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_pulih",
+									"value": "22",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_jumlah",
+									"value": "23",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "periode_okmar_asep",
+									"value": "OKMAR",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "th_mt",
+									"value": "2020",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "mt_mk_mh",
+									"value": "MH",
+									"type": "text"
+								},
+								{
+									"key": "subround",
+									"value": "I",
+									"type": "text"
+								},
+								{
+									"key": "visited_at",
+									"value": "2020-01-01",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{live}}/api/v1/report-dpi/gangguan/store",
+							"host": [
+								"{{live}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"report-dpi",
+								"gangguan",
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{live}}/api/v1/report-dpi/gangguan/detail?id=2",
+							"host": [
+								"{{live}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"report-dpi",
+								"gangguan",
+								"detail"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "2",
+									"description": "wajib"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Detail",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{live}}/api/v1/report-dpi/gangguan/detail?id=2",
+									"host": [
+										"{{live}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"report-dpi",
+										"gangguan",
+										"detail"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "2",
+											"description": "wajib"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Sun, 28 Mar 2021 23:58:41 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Apache/2.4.6 (CentOS) PHP/7.3.25"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.3.25"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "56"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1138"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5, max=100"
+								},
+								{
+									"key": "Connection",
+									"value": "Keep-Alive"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"id\": 2,\n        \"photo\": \"upload/dpi/gangguan2021/03/43044_2_1.png\",\n        \"bulan\": 1,\n        \"tahun\": \"2020\",\n        \"lat\": \"-7.01583338\",\n        \"lng\": \"107.55722046\",\n        \"provinsi\": {\n            \"id\": 1,\n            \"name\": \"ACEH\"\n        },\n        \"kabupaten\": {\n            \"id\": 1,\n            \"name\": \"SIMEULUE\"\n        },\n        \"kecamatan\": {\n            \"id\": 1,\n            \"name\": \"TEUPAH SELATAN\"\n        },\n        \"desa\": {\n            \"id\": 1,\n            \"name\": \"LATIUNG\"\n        },\n        \"komoditas\": {\n            \"id\": 1,\n            \"name\": \"Padi\"\n        },\n        \"varietas\": \"Jagung\",\n        \"persemaian\": {\n            \"umur\": 1,\n            \"luas\": 2\n        },\n        \"tanam\": {\n            \"umur\": 3,\n            \"luas\": 4\n        },\n        \"periode\": \"5\",\n        \"penyebab\": \"Kemaraun\",\n        \"penanganan\": \"Perairan\",\n        \"sisa_terkena_menjadi_ringan\": \"6.00\",\n        \"sisa_terkena_menjadi_sedang\": \"7.00\",\n        \"sisa_terkena_menjadi_berat\": \"8.00\",\n        \"sisa_terkena_menjadi_puso\": \"23.00\",\n        \"sisa_terkena_menjadi_pulih\": \"9.00\",\n        \"sisa_terkena_jumlah\": \"10.00\",\n        \"luas_tambah_ringan\": \"11.00\",\n        \"luas_tambah_sedang\": \"12.00\",\n        \"luas_tambah_berat\": \"14.00\",\n        \"luas_tambah_puso\": \"15.00\",\n        \"luas_tambah_pulih\": \"16.00\",\n        \"luas_tambah_jumlah\": \"17.00\",\n        \"keadaan_ringan\": \"18.00\",\n        \"keadaan_sedang\": \"19.00\",\n        \"keadaan_berat\": \"20.00\",\n        \"keadaan_puso\": \"21.00\",\n        \"keadaan_pulih\": \"22.00\",\n        \"keadaan_jumlah\": \"23.00\",\n        \"periode_okmar_asep\": \"OKMAR\",\n        \"th_mt\": \"2019/2020\",\n        \"mt_mk_mh\": \"MH\",\n        \"subround\": \"I\",\n        \"status\": \"Pending\",\n        \"visited_at\": \"01/01/20\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "2",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "photo",
+									"description": "optional",
+									"type": "file",
+									"src": "/C:/Users/rdh/Pictures/blue-cirlce.png"
+								},
+								{
+									"key": "bulan",
+									"value": "12",
+									"description": "optional",
+									"type": "text"
+								},
+								{
+									"key": "tahun",
+									"value": "2021",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "lat",
+									"value": "-7.01583338",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "lng",
+									"value": "107.55722046",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "provinsi",
+									"value": "1",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "kabupaten",
+									"value": "1",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "kecamatan",
+									"value": "1",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "desa",
+									"value": "2",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "komoditas",
+									"value": "2",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "varietas",
+									"value": "Gandum",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "umur_persemaian",
+									"value": "11",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_persemaian",
+									"value": "22",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "umur_tanam",
+									"value": "33",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tanam",
+									"value": "43",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "periode",
+									"value": "55",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "penyebab",
+									"value": "Kemarau",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "penanganan",
+									"value": "Perairan Manual",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena_menjadi_ringan",
+									"value": "6.6",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena_menjadi_sedang",
+									"value": "7.7",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena_menjadi_berat",
+									"value": "8.8",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena_menjadi_puso",
+									"value": "23.23",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena_menjadi_pulih",
+									"value": "9.9",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "sisa_terkena_jumlah",
+									"value": "10.10",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_ringan",
+									"value": "11.11",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_sedang",
+									"value": "12.12",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_berat",
+									"value": "14.14",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_puso",
+									"value": "15.15",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_pulih",
+									"value": "16.16",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "luas_tambah_jumlah",
+									"value": "17.17",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_ringan",
+									"value": "18.18",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_sedang",
+									"value": "19.19",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_berat",
+									"value": "20.20",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_puso",
+									"value": "21.21",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_pulih",
+									"value": "22.22",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "keadaan_jumlah",
+									"value": "23.23",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "periode_okmar_asep",
+									"value": "ASEP",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "th_mt",
+									"value": "2020-2021",
+									"description": "Wajib",
+									"type": "text"
+								},
+								{
+									"key": "mt_mk_mh",
+									"value": "MK",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "subround",
+									"value": "II",
+									"description": "wajib",
+									"type": "text"
+								},
+								{
+									"key": "visited_at",
+									"value": "2021-01-01",
+									"description": "wajib",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{live}}/api/v1/report-dpi/gangguan/update",
+							"host": [
+								"{{live}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"report-dpi",
+								"gangguan",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Data Laporan",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{live}}/api/v1/reports?user=1",
+					"host": [
+						"{{live}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"reports"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "1",
+							"description": "wajib"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Data Laporan",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/api/v1/reports?user=1",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"reports"
+							],
+							"query": [
+								{
+									"key": "user",
+									"value": "1",
+									"description": "wajib"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost:8000"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 29 Mar 2021 04:31:21 GMT"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 29 Mar 2021 04:31:21 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/7.3.25"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "58"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"success\",\n    \"data\": [\n        {\n            \"id\": 2,\n            \"title\": \"Laporan OPT\",\n            \"status\": \"Pending\",\n            \"date\": \"29 Mar 2021 11:05:42\",\n            \"location\": \"LATIUNG\",\n            \"type\": \"OPT\"\n        },\n        {\n            \"id\": 1,\n            \"title\": \"Laporan OPT\",\n            \"status\": \"Pending\",\n            \"date\": \"29 Mar 2021 10:11:04\",\n            \"location\": \"LABUHAN BAJAU\",\n            \"type\": \"OPT\"\n        },\n        {\n            \"id\": 6,\n            \"title\": \"Laporan Gangguan Fisiologis\",\n            \"status\": \"Pending\",\n            \"date\": \"29 Mar 2021 09:32:49\",\n            \"location\": \"LATIUNG\",\n            \"type\": \"Gangguan Fisiologis\"\n        },\n        {\n            \"id\": 5,\n            \"title\": \"Laporan Kekeringan\",\n            \"status\": \"Pending\",\n            \"date\": \"29 Mar 2021 09:29:01\",\n            \"location\": \"LABUHAN BAJAU\",\n            \"type\": \"Kekeringan\"\n        },\n        {\n            \"id\": 4,\n            \"title\": \"Laporan Bencana\",\n            \"status\": \"Pending\",\n            \"date\": \"29 Mar 2021 09:21:23\",\n            \"location\": \"LABUHAN BAJAU\",\n            \"type\": \"Bencana\"\n        },\n        {\n            \"id\": 3,\n            \"title\": \"Laporan Banjir\",\n            \"status\": \"Pending\",\n            \"date\": \"29 Mar 2021 09:14:34\",\n            \"location\": \"LATIUNG\",\n            \"type\": \"Banjir\"\n        },\n        {\n            \"id\": 2,\n            \"title\": \"Laporan Gangguan Fisiologis\",\n            \"status\": \"Pending\",\n            \"date\": \"29 Mar 2021 07:58:30\",\n            \"location\": \"LABUHAN BAJAU\",\n            \"type\": \"Gangguan Fisiologis\"\n        },\n        {\n            \"id\": 1,\n            \"title\": \"Laporan Kekeringan\",\n            \"status\": \"Pending\",\n            \"date\": \"29 Mar 2021 07:57:41\",\n            \"location\": \"LABUHAN BAJAU\",\n            \"type\": \"Kekeringan\"\n        }\n    ]\n}"
+				}
+			]
+		}
+	]
+}

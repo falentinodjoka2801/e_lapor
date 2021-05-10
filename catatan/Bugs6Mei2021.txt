@@ -1,0 +1,12 @@
+1. SUBROUND di opt cek, katanya gak ada (CLEAR)
+2. Pakai label sesuai (CLEAR)
+3. Saat ubah gambar di update opt subround ikut berubah (CLEAR)
+
+
+//catatan
+3.593006028204264, 98.67140822164191
+3; 35; 34.3 => 3 + 0.583 + 0.009 => 3.592
+98; 40; 15.2 => 98 + 0.667 + 0.004 => 98.671
+
+=> latitude from photo image->gps->GPSLatitude
+=> longitude from photo image->gps->GPSLongitude

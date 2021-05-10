@@ -1,0 +1,8 @@
+1. API untuk get provinsi, kabupaten/kota, kecamatan dan kelurahan (desa)
+2. Entitas provinsi, kabupaten, kecamatan dan desa di API Login seharusnya berupa ID, bukan String.
+3. Kekurangan entitas di API Login baru, berikut entitas yang kurang :
+	a. email
+	b. kecamantan (typo) seharusnya kecamatan
+	c. desa (di API Login sebelumnya ada)
+	d. photo (di API Login sebelumnya ada)
+	e. jabatan (mungkin hanya perbedaan nama, gunanya untuk dimunculkan di halaman awal, misalnya PETUGAS OPT)
