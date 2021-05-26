@@ -1,12 +1,14 @@
 import 'dart:convert';
 
+import 'package:e_lapor/Beranda.dart';
+import 'package:e_lapor/Laporanku.dart';
+import 'package:e_lapor/Navigation/TabItem.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart';
 
 import 'package:e_lapor/DPI/DPIAndOPT.dart';
-import 'package:e_lapor/Beranda.dart';
 
 import 'package:e_lapor/globalWidgets/Alert.dart';
 import 'package:e_lapor/globalWidgets/Button.dart';
@@ -17,9 +19,13 @@ import 'package:e_lapor/libraries/ServerPath.dart';
 enum KekeringanAction { add, edit, detail }
 
 class Kekeringan extends StatefulWidget {
+  final TabItem tabItem;
   final int idLaporan;
   final KekeringanAction action;
-  Kekeringan({this.idLaporan, this.action = KekeringanAction.add});
+  Kekeringan(
+      {@required this.tabItem,
+      this.idLaporan,
+      this.action = KekeringanAction.add});
 
   _KekeringanState createState() => _KekeringanState();
 }
@@ -52,6 +58,11 @@ class _KekeringanState extends State<Kekeringan> {
       isBtnSubmitActive: _isBtnSubmitActive,
       dpiAndOPTTitle: '$_editString DPI Kekeringan',
       onSubmit: (dataDPI) async {
+        TabItem _tabItem = widget.tabItem;
+
+        BuildContext _tabItemContext =
+            navigatesKey[_tabItem].currentState.context;
+
         setState(() {
           _isBtnSubmitActive = false;
         });
@@ -63,7 +74,10 @@ class _KekeringanState extends State<Kekeringan> {
 
         MultipartRequest _request = MultipartRequest('POST', _url);
 
-        _request.files.add(await MultipartFile.fromPath('photo', _photo.path));
+        if (_photo != null) {
+          _request.files
+              .add(await MultipartFile.fromPath('photo', _photo.path));
+        }
 
         dataDPI.forEach((key, value) {
           if (key.toLowerCase() != 'photo') {
@@ -92,13 +106,17 @@ class _KekeringanState extends State<Kekeringan> {
         }
 
         Widget _icon = SvgPicture.asset(ClientPath.svgPath + '/$_iconPath');
+        Widget _pageToRoute =
+            (_tabItem == TabItem.beranda) ? Beranda() : LaporanKu();
 
         Widget _actions = Button.button(context, _buttonText, () {
           if (_success) {
-            Navigator.pushAndRemoveUntil(context,
-                MaterialPageRoute(builder: (_) => Beranda()), (route) => false);
+            Navigator.pushAndRemoveUntil(
+                _tabItemContext,
+                MaterialPageRoute(builder: (_) => _pageToRoute),
+                (route) => false);
           } else {
-            Navigator.pop(context);
+            Navigator.pop(_tabItemContext);
           }
         }, color: _iconColor, outline: true);
 
@@ -106,7 +124,7 @@ class _KekeringanState extends State<Kekeringan> {
           _isBtnSubmitActive = true;
         });
 
-        await Alert.textComponent(context,
+        await Alert.textComponent(_tabItemContext,
             icon: _icon, title: _title, subTitle: _message, actions: _actions);
       },
       sisaTerkenaMenjadiRingan: true,

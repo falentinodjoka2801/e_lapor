@@ -33,6 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
       if (_currentLocation != null) {
         double _latitude = _currentLocation['latitude'];
         double _longitude = _currentLocation['longitude'];
+
         await LocalStorage.setSavedLocation(_latitude, _longitude);
 
         await Navigator.pushAndRemoveUntil(context,
@@ -80,6 +81,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
                     return (_isLogin)
                         ? Loading(
+                            showLogo: false,
                             loadingTitle: 'Pendeteksian Lokasi',
                             loadingSubTitle:
                                 'Mohon tunggu sebentar, aplikasi sedang mencoba mendeteksi lokasi anda saat ini')

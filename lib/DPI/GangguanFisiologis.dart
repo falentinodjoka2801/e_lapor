@@ -1,12 +1,14 @@
 import 'dart:convert';
 
+import 'package:e_lapor/Beranda.dart';
+import 'package:e_lapor/Laporanku.dart';
+import 'package:e_lapor/Navigation/TabItem.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart' show PickedFile;
 import 'package:http/http.dart';
 
 import 'package:e_lapor/DPI/DPIAndOPT.dart';
-import 'package:e_lapor/Beranda.dart';
 
 import 'package:e_lapor/globalWidgets/Alert.dart';
 import 'package:e_lapor/globalWidgets/Button.dart';
@@ -17,10 +19,13 @@ import 'package:e_lapor/libraries/ServerPath.dart';
 enum GangguanFisiologisAction { add, edit, detail }
 
 class GangguanFisiologis extends StatefulWidget {
+  final TabItem tabItem;
   final int idLaporan;
   final GangguanFisiologisAction action;
   GangguanFisiologis(
-      {this.idLaporan, this.action = GangguanFisiologisAction.add});
+      {@required this.tabItem,
+      this.idLaporan,
+      this.action = GangguanFisiologisAction.add});
 
   @override
   _GangguanFisiologisState createState() => _GangguanFisiologisState();
@@ -54,6 +59,11 @@ class _GangguanFisiologisState extends State<GangguanFisiologis> {
       isBtnSubmitActive: _isBtnSubmitActive,
       dpiAndOPTTitle: '$_editString DPI Gangguan Fisiologis',
       onSubmit: (dataDPI) async {
+        TabItem _tabItem = widget.tabItem;
+
+        BuildContext _tabItemContext =
+            navigatesKey[_tabItem].currentState.context;
+
         setState(() {
           _isBtnSubmitActive = false;
         });
@@ -66,7 +76,10 @@ class _GangguanFisiologisState extends State<GangguanFisiologis> {
 
         MultipartRequest _request = MultipartRequest('POST', _url);
 
-        _request.files.add(await MultipartFile.fromPath('photo', _photo.path));
+        if (_photo != null) {
+          _request.files
+              .add(await MultipartFile.fromPath('photo', _photo.path));
+        }
 
         dataDPI.forEach((key, value) {
           if (key.toLowerCase() != 'photo') {
@@ -95,13 +108,17 @@ class _GangguanFisiologisState extends State<GangguanFisiologis> {
         }
 
         Widget _icon = SvgPicture.asset(ClientPath.svgPath + '/$_iconPath');
+        Widget _pageToRoute =
+            (_tabItem == TabItem.beranda) ? Beranda() : LaporanKu();
 
         Widget _actions = Button.button(context, _buttonText, () {
           if (_success) {
-            Navigator.pushAndRemoveUntil(context,
-                MaterialPageRoute(builder: (_) => Beranda()), (route) => false);
+            Navigator.pushAndRemoveUntil(
+                _tabItemContext,
+                MaterialPageRoute(builder: (_) => _pageToRoute),
+                (route) => false);
           } else {
-            Navigator.pop(context);
+            Navigator.pop(_tabItemContext);
           }
         }, color: _iconColor, outline: true);
 
@@ -109,7 +126,7 @@ class _GangguanFisiologisState extends State<GangguanFisiologis> {
           _isBtnSubmitActive = true;
         });
 
-        await Alert.textComponent(context,
+        await Alert.textComponent(_tabItemContext,
             icon: _icon, title: _title, subTitle: _message, actions: _actions);
       },
       sisaTerkenaMenjadiRingan: true,

@@ -56,6 +56,7 @@ class NotifikasiItem extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                         builder: (_) => TambahLaporan(
+                                            tabItem: TabItem.beranda,
                                             idLaporan: _idLaporan,
                                             state: TambahLaporanState.edit))),
                               )

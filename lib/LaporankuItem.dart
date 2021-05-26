@@ -9,7 +9,6 @@ import 'package:e_lapor/DPI/Banjir.dart';
 import 'package:e_lapor/DPI/BencanaAlam.dart';
 import 'package:e_lapor/DPI/GangguanFisiologis.dart';
 import 'package:e_lapor/DPI/Kekeringan.dart';
-import 'package:e_lapor/DetailLaporan.dart';
 
 import 'package:e_lapor/libraries/SizeConfig.dart';
 import 'package:e_lapor/libraries/ClientPath.dart';
@@ -46,22 +45,34 @@ class LaporankuItem extends StatelessWidget {
         Navigator.push(navigatesKey[tabItem].currentState.context,
             MaterialPageRoute(builder: (context) {
           if (_tipeLaporanLC == 'opt') {
-            return DetailLaporan(idLaporan: _idLaporan);
+            return TambahLaporan(
+                tabItem: TabItem.laporanKu,
+                idLaporan: _idLaporan,
+                state: TambahLaporanState.detail);
           }
           if (_tipeLaporanLC == 'gangguan fisiologis') {
             return GangguanFisiologis(
-                idLaporan: _idLaporan, action: GangguanFisiologisAction.detail);
+                tabItem: TabItem.laporanKu,
+                idLaporan: _idLaporan,
+                action: GangguanFisiologisAction.detail);
           }
           if (_tipeLaporanLC == 'banjir') {
-            return Banjir(idLaporan: _idLaporan, action: BanjirAction.detail);
+            return Banjir(
+                tabItem: TabItem.laporanKu,
+                idLaporan: _idLaporan,
+                action: BanjirAction.detail);
           }
           if (_tipeLaporanLC == 'kekeringan') {
             return Kekeringan(
-                idLaporan: _idLaporan, action: KekeringanAction.detail);
+                tabItem: TabItem.laporanKu,
+                idLaporan: _idLaporan,
+                action: KekeringanAction.detail);
           }
           if (_tipeLaporanLC == 'bencana') {
             return BencanaAlam(
-                idLaporan: _idLaporan, action: BencanaAlamAction.detail);
+                tabItem: TabItem.laporanKu,
+                idLaporan: _idLaporan,
+                action: BencanaAlamAction.detail);
           }
 
           return null;
@@ -106,28 +117,33 @@ class LaporankuItem extends StatelessWidget {
                                         MaterialPageRoute(builder: (_) {
                                       if (_tipeLaporanLC == 'opt') {
                                         return TambahLaporan(
+                                            tabItem: TabItem.laporanKu,
                                             idLaporan: _idLaporan,
                                             state: TambahLaporanState.edit);
                                       }
                                       if (_tipeLaporanLC ==
                                           'gangguan fisiologis') {
                                         return GangguanFisiologis(
+                                            tabItem: TabItem.laporanKu,
                                             idLaporan: _idLaporan,
                                             action:
                                                 GangguanFisiologisAction.edit);
                                       }
                                       if (_tipeLaporanLC == 'banjir') {
                                         return Banjir(
+                                            tabItem: TabItem.laporanKu,
                                             idLaporan: _idLaporan,
                                             action: BanjirAction.edit);
                                       }
                                       if (_tipeLaporanLC == 'kekeringan') {
                                         return Kekeringan(
+                                            tabItem: TabItem.laporanKu,
                                             idLaporan: _idLaporan,
                                             action: KekeringanAction.edit);
                                       }
                                       if (_tipeLaporanLC == 'bencana') {
                                         return BencanaAlam(
+                                            tabItem: TabItem.laporanKu,
                                             idLaporan: _idLaporan,
                                             action: BencanaAlamAction.edit);
                                       }

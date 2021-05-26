@@ -4,7 +4,6 @@ import 'package:e_lapor/LaporankuItem.dart';
 import 'package:e_lapor/Navigation/TabItem.dart';
 import 'package:e_lapor/Object/Laporan.dart';
 import 'package:e_lapor/globalWidgets/CustomNavigation.dart';
-import 'package:e_lapor/globalWidgets/Button.dart';
 import 'package:e_lapor/globalWidgets/Alert.dart';
 import 'package:e_lapor/globalWidgets/DataNotFound.dart';
 import 'package:e_lapor/globalWidgets/Loading.dart';
@@ -28,23 +27,78 @@ class _LaporanKuState extends State<LaporanKu> with TickerProviderStateMixin {
   String _currentTab = 'pending';
 
   List _laporanKu = [];
+
   bool _readyToShow = false;
+  Map<String, int> _filter;
 
   void initState() {
     super.initState();
     _initialization();
   }
 
-  Future<void> _initialization() async {
+  Future<void> _initialization(
+      {int idProvinsi,
+      int idKabupatenKota,
+      int idKecamatan,
+      int idKelurahan}) async {
     Map<String, dynamic> _dataLogin = await AkunFuture.getDataLogin();
     int _activeUserID = _dataLogin[SPKey.idUser];
 
-    List _laporanByStatus = await LaporanFuture.getLaporan(
-        idUser: _activeUserID, status: _currentTab);
+    List _laporanByStatus = [];
+    LaporanResponse _laporanResponse = await LaporanFuture.getLaporan(
+        idUser: _activeUserID,
+        status: _currentTab,
+        idProvinsi: idProvinsi,
+        idKabupatenKota: idKabupatenKota,
+        idKecamatan: idKecamatan,
+        idKelurahan: idKelurahan);
+
+    if (_laporanResponse.statusCode == 200) {
+      _laporanByStatus = _laporanResponse.laporan;
+    } else {
+      await Alert.alertServerBermasalah(context);
+    }
 
     setState(() {
       _laporanKu = _laporanByStatus;
       _readyToShow = true;
+    });
+  }
+
+  Future<void> _onRefreshIndicator(
+      {@required BuildContext onRefreshIndicatorContext,
+      @required int idUser,
+      @required String currentTab}) async {
+    Map<String, dynamic> _dataLogin = await AkunFuture.getDataLogin();
+    int _idProvinsi = _dataLogin[SPKey.provinsiUser];
+    int _idKabupatenKota = _dataLogin[SPKey.kabupatenKotaUser];
+    int _kecamatan, _kelurahan;
+
+    if (_filter != null) {
+      _kecamatan = _filter['kecamatan'];
+      _kelurahan = _filter['kelurahan'];
+
+      _kecamatan = (_kecamatan != null && _kecamatan != 0) ? _kecamatan : null;
+      _kelurahan = (_kelurahan != null && _kelurahan != 0) ? _kelurahan : null;
+    }
+
+    List _laporanByStatus = [];
+    LaporanResponse _laporanResponse = await LaporanFuture.getLaporan(
+        idUser: idUser,
+        status: currentTab,
+        idProvinsi: _idProvinsi,
+        idKabupatenKota: _idKabupatenKota,
+        idKecamatan: _kecamatan,
+        idKelurahan: _kelurahan);
+
+    if (_laporanResponse.statusCode == 200) {
+      _laporanByStatus = _laporanResponse.laporan;
+    } else {
+      await Alert.alertServerBermasalah(onRefreshIndicatorContext);
+    }
+
+    setState(() {
+      _laporanKu = _laporanByStatus;
     });
   }
 
@@ -60,34 +114,58 @@ class _LaporanKuState extends State<LaporanKu> with TickerProviderStateMixin {
     ];
 
     return Scaffold(
-        appBar: CustomNavigation.appBar(
-            appBarContext: context,
-            title: 'Laporan Ku',
-            actions: [
+        appBar: CustomNavigation
+            .appBar(appBarContext: context, title: 'Laporan Ku', actions: [
+          Stack(
+            children: [
               IconButton(
                   icon: SvgPicture.asset(ClientPath.svgPath + '/filter.svg'),
                   onPressed: () async {
-                    Widget _body = FilterPencarian();
-                    Widget _actions = Column(children: [
-                      Button.submitButton(context, 'TERAPKAN', () {},
-                          color: CustomColors.eLaporGreen,
-                          trailing: Icon(Icons.arrow_forward_ios_sharp,
-                              color: CustomColors.eLaporWhite)),
-                      SizedBox(height: 5.0),
-                      Button.submitButton(context, 'BERSIHKAN FILTER', () {},
-                          color: CustomColors.eLaporRed,
-                          outline: true,
-                          useBorder: false),
-                    ]);
+                    Widget _body = FilterPencarian(
+                        currentTab: _currentTab,
+                        currentFilter: _filter,
+                        dataFiltered: (dataFiltered, filterData) async {
+                          setState(() {
+                            _laporanKu = dataFiltered;
+                            _readyToShow = true;
+                            _filter = filterData;
+                          });
+
+                          Navigator.pop(context);
+                        },
+                        onBersihkan: (dataFiltered) {
+                          setState(() {
+                            _filter = null;
+                            _readyToShow = true;
+                            _laporanKu = dataFiltered;
+                          });
+
+                          Navigator.pop(context);
+                        });
+
                     await Alert.widgetComponent(context,
-                        useRouteNavigator: true,
+                        useRouteNavigator: false,
                         isDismissible: true,
                         icon: SvgPicture.asset(
                             ClientPath.svgPath + '/search-circle.svg'),
                         body: _body,
-                        actions: _actions);
-                  })
-            ]),
+                        actions: null);
+                  }),
+              (_filter != null)
+                  ? Positioned(
+                      top: 7.5,
+                      right: 7.5,
+                      child: Container(
+                          width: SizeConfig.horizontalBlock * 3,
+                          height: SizeConfig.horizontalBlock * 3,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(
+                                  SizeConfig.horizontalBlock * 3),
+                              color: CustomColors.dangerColor)))
+                  : SizedBox()
+            ],
+          )
+        ]),
         body: FutureBuilder(
             future: AkunFuture.getDataLogin(),
             builder: (futureBuilderContext, snapshot) {
@@ -109,10 +187,43 @@ class _LaporanKuState extends State<LaporanKu> with TickerProviderStateMixin {
                                 _readyToShow = false;
                               });
 
-                              List _laporanByStatus =
+                              Map<String, dynamic> _dataLogin =
+                                  await AkunFuture.getDataLogin();
+                              int _provinsiUser =
+                                  _dataLogin[SPKey.provinsiUser];
+                              int _kabupatenUser =
+                                  _dataLogin[SPKey.kabupatenKotaUser];
+
+                              int _kecamatan, _kelurahan;
+                              if (_filter != null) {
+                                _kecamatan = _filter['kecamatan'];
+                                _kelurahan = _filter['kelurahan'];
+
+                                _kecamatan =
+                                    (_kecamatan != null && _kecamatan != 0)
+                                        ? _kecamatan
+                                        : null;
+
+                                _kelurahan =
+                                    (_kelurahan != null && _kelurahan != 0)
+                                        ? _kelurahan
+                                        : null;
+                              }
+
+                              List _laporanByStatus = [];
+                              LaporanResponse _laporanResponse =
                                   await LaporanFuture.getLaporan(
                                       idUser: _activeUserID,
-                                      status: _currentTab);
+                                      status: _tabValue[selectedValue],
+                                      idProvinsi: _provinsiUser,
+                                      idKabupatenKota: _kabupatenUser,
+                                      idKecamatan: _kecamatan,
+                                      idKelurahan: _kelurahan);
+                              if (_laporanResponse.statusCode == 200) {
+                                _laporanByStatus = _laporanResponse.laporan;
+                              } else {
+                                await Alert.alertServerBermasalah(context);
+                              }
 
                               setState(() {
                                 _laporanKu = _laporanByStatus;
@@ -153,10 +264,10 @@ class _LaporanKuState extends State<LaporanKu> with TickerProviderStateMixin {
                             ? (_laporanKu.length >= 1)
                                 ? RefreshIndicator(
                                     onRefresh: () async {
-                                      setState(() {
-                                        _currentTabInt = 0;
-                                        _currentTab = 'pending';
-                                      });
+                                      await _onRefreshIndicator(
+                                          onRefreshIndicatorContext: context,
+                                          idUser: _activeUserID,
+                                          currentTab: _currentTab);
                                     },
                                     child: ListView.builder(
                                         padding: EdgeInsets.only(
@@ -177,9 +288,41 @@ class _LaporanKuState extends State<LaporanKu> with TickerProviderStateMixin {
                                           return LaporankuItem(_laporanItem,
                                               tabItem: TabItem.laporanKu);
                                         }))
-                                : Center(
-                                    child: DataNotFound(
-                                        textMessage: 'Tidak Ada Laporan'))
+                                : RefreshIndicator(
+                                    onRefresh: () async {
+                                      await _onRefreshIndicator(
+                                          onRefreshIndicatorContext: context,
+                                          idUser: _activeUserID,
+                                          currentTab: _currentTab);
+                                    },
+                                    child: LayoutBuilder(
+                                        builder: (context, constraints) {
+                                      return ListView(children: [
+                                        Container(
+                                            constraints: BoxConstraints(
+                                                minHeight:
+                                                    constraints.maxHeight,
+                                                minWidth: constraints.minWidth),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                DataNotFound(
+                                                    textMessage:
+                                                        'Tidak Ada Laporan'),
+                                                SizedBox(height: 5.0),
+                                                Text(
+                                                    'Tarik layar ke bawah untuk mereload ulang data',
+                                                    style: TextStyle(
+                                                        fontSize: SizeConfig
+                                                                .horizontalBlock *
+                                                            3.5))
+                                              ],
+                                            ))
+                                      ]);
+                                    }),
+                                  )
                             : Center(
                                 child: Loading(
                                     loadingTitle: 'Laporan',

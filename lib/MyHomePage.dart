@@ -72,8 +72,8 @@ class _MyHomePageState extends State<MyHomePage> {
             navigatorKey: navigatesKey[tabItem], tabItem: tabItem));
   }
 
-  void _selectTab(TabItem currentTab, TabItem tabItem) {
-    if (tabItem == currentTab) {
+  void _selectTab(TabItem tabItem) {
+    if (tabItem == _currentTab) {
       navigatesKey[tabItem].currentState.popUntil((route) => route.isFirst);
     } else {
       setState(() {
@@ -90,41 +90,41 @@ class _MyHomePageState extends State<MyHomePage> {
           bool isItTheFirstPageInCurrentTab =
               !await navigatesKey[_currentTab].currentState.maybePop();
 
-          if (_currentTab != TabItem.beranda) {
-            _selectTab(_currentTab, TabItem.beranda);
-
-            return false;
-          }
-
           if (isItTheFirstPageInCurrentTab) {
-            Widget _icon = SvgPicture.asset(ClientPath.svgPath + '/danger.svg');
-            Widget _actions = Row(children: [
-              Expanded(
-                  child: Button.button(context, 'Ya', () {
-                Navigator.pop(context, true);
-              },
-                      color: CustomColors.dangerColor,
-                      outline: true,
-                      isBlock: true)),
-              SizedBox(width: 10.0),
-              Expanded(
-                  child: Button.button(context, 'Tidak', () {
-                Navigator.pop(context, false);
-              }, color: CustomColors.eLaporGreen, isBlock: true))
-            ]);
-            DateTime now = DateTime.now();
-            if (currentBackPressTime == null ||
-                now.difference(currentBackPressTime) > Duration(seconds: 2)) {
-              currentBackPressTime = now;
-              bool _exit = await Alert.textComponent(context,
-                  icon: _icon,
-                  title: 'Keluar Aplikasi',
-                  subTitle: 'Apakah anda yakin akan keluar dari aplikasi?',
-                  actions: _actions);
+            if (_currentTab != TabItem.beranda) {
+              _selectTab(TabItem.beranda);
+              return false;
+            } else {
+              Widget _icon =
+                  SvgPicture.asset(ClientPath.svgPath + '/danger.svg');
+              Widget _actions = Row(children: [
+                Expanded(
+                    child: Button.button(context, 'Ya', () {
+                  Navigator.pop(context, true);
+                },
+                        color: CustomColors.dangerColor,
+                        outline: true,
+                        isBlock: true)),
+                SizedBox(width: 10.0),
+                Expanded(
+                    child: Button.button(context, 'Tidak', () {
+                  Navigator.pop(context, false);
+                }, color: CustomColors.eLaporGreen, isBlock: true))
+              ]);
+              DateTime now = DateTime.now();
+              if (currentBackPressTime == null ||
+                  now.difference(currentBackPressTime) > Duration(seconds: 2)) {
+                currentBackPressTime = now;
+                bool _exit = await Alert.textComponent(context,
+                    icon: _icon,
+                    title: 'Keluar Aplikasi',
+                    subTitle: 'Apakah anda yakin akan keluar dari aplikasi?',
+                    actions: _actions);
 
-              return Future.value(_exit);
+                return Future.value(_exit);
+              }
+              return Future.value(true);
             }
-            return Future.value(true);
           }
 
           return isItTheFirstPageInCurrentTab;
@@ -138,6 +138,6 @@ class _MyHomePageState extends State<MyHomePage> {
             bottomNavigationBar: CustomBottomNavigationBar(
                 currenTabItem: _currentTab,
                 onTap: (TabItem selectedTabItem) =>
-                    _selectTab(_currentTab, selectedTabItem))));
+                    _selectTab(selectedTabItem))));
   }
 }

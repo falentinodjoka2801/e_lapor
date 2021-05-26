@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:e_lapor/Beranda.dart';
+import 'package:e_lapor/Laporanku.dart';
+import 'package:e_lapor/Navigation/TabItem.dart';
 import 'package:e_lapor/globalWidgets/Alert.dart';
 import 'package:e_lapor/globalWidgets/Button.dart';
 import 'package:e_lapor/libraries/ClientPath.dart';
@@ -16,9 +18,11 @@ import 'package:image_picker/image_picker.dart';
 enum BanjirAction { add, edit, detail }
 
 class Banjir extends StatefulWidget {
+  final TabItem tabItem;
   final int idLaporan;
   final BanjirAction action;
-  Banjir({this.idLaporan, this.action = BanjirAction.add});
+  Banjir(
+      {@required this.tabItem, this.idLaporan, this.action = BanjirAction.add});
 
   _BanjirState createState() => _BanjirState();
 }
@@ -51,6 +55,10 @@ class _BanjirState extends State<Banjir> {
         isBtnSubmitActive: _isBtnSubmitActive,
         dpiAndOPTTitle: '$_editString DPI Banjir',
         onSubmit: (dataDPI) async {
+          TabItem _tabItem = widget.tabItem;
+          BuildContext _tabItemContext =
+              navigatesKey[_tabItem].currentState.context;
+
           setState(() {
             _isBtnSubmitActive = false;
           });
@@ -99,15 +107,17 @@ class _BanjirState extends State<Banjir> {
           }
 
           Widget _icon = SvgPicture.asset(ClientPath.svgPath + '/$_iconPath');
+          Widget _pageToRoute =
+              (_tabItem == TabItem.beranda) ? Beranda() : LaporanKu();
 
           Widget _actions = Button.button(context, _buttonText, () {
             if (_success) {
               Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (_) => Beranda()),
+                  _tabItemContext,
+                  MaterialPageRoute(builder: (_) => _pageToRoute),
                   (route) => false);
             } else {
-              Navigator.pop(context);
+              Navigator.pop(_tabItemContext);
             }
           }, color: _iconColor, outline: true);
 
@@ -115,7 +125,7 @@ class _BanjirState extends State<Banjir> {
             _isBtnSubmitActive = true;
           });
 
-          await Alert.textComponent(context,
+          await Alert.textComponent(_tabItemContext,
               icon: _icon,
               title: _title,
               subTitle: _message,

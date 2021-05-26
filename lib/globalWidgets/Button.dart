@@ -152,7 +152,9 @@ class Button {
                               SizedBox(width: 15.0),
                               Text('Processing ...',
                                   style: TextStyle(
-                                      color: CustomColors.eLaporWhite,
+                                      color: (outline)
+                                          ? color
+                                          : CustomColors.eLaporWhite,
                                       fontWeight: FontWeight.w700))
                             ],
                           )

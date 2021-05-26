@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
-// import 'package:line_icons/line_icons.dart';
 
 import 'package:e_lapor/libraries/ClientPath.dart';
-// import 'package:e_lapor/libraries/CustomColors.dart';
 
 import 'package:e_lapor/Beranda.dart';
 import 'package:e_lapor/DetailAkun.dart';
 import 'package:e_lapor/Laporanku.dart';
-// import 'package:e_lapor/FilterPencarian.dart';
-
-// import 'package:e_lapor/globalWidgets/Button.dart';
-// import 'package:e_lapor/globalWidgets/Alert.dart';
 
 enum TabItem { beranda, laporanKu, akun }
 

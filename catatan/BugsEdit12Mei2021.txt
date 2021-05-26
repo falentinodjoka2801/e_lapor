@@ -1,0 +1,5 @@
+1. untuk edit
+	=> banjir => normal
+	=> kekeringan => tambah data baru (bukan update padahal sudah kirim id)
+	=> bencana alam => tambah data baru (bukan update padahal sudah kirim id)
+	=> gangguan fisiologis => tambah data baru (bukan update padahal sudah kirim id)

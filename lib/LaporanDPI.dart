@@ -2,6 +2,7 @@ import 'package:e_lapor/DPI/Banjir.dart';
 import 'package:e_lapor/DPI/BencanaAlam.dart';
 import 'package:e_lapor/DPI/GangguanFisiologis.dart';
 import 'package:e_lapor/DPI/Kekeringan.dart';
+import 'package:e_lapor/Navigation/TabItem.dart';
 import 'package:flutter/material.dart';
 
 import 'package:e_lapor/libraries/ClientPath.dart';
@@ -25,23 +26,32 @@ class LaporanDPI extends StatelessWidget {
               imageAssetPath: ClientPath.iconPath + '/image5.png',
               buttonText: 'BANJIR',
               onButtonTap: () => Navigator.push(
-                  context, MaterialPageRoute(builder: (_) => Banjir()))),
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => Banjir(tabItem: TabItem.beranda)))),
           LaporanItem(
               imageAssetPath: ClientPath.iconPath + '/image6.png',
               buttonText: 'KEKERINGAN',
               onButtonTap: () => Navigator.push(
-                  context, MaterialPageRoute(builder: (_) => Kekeringan()))),
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => Kekeringan(tabItem: TabItem.beranda)))),
           LaporanItem(
               imageAssetPath: ClientPath.iconPath + '/image7.png',
               buttonText: 'BENCANA ALAM',
               onButtonTap: () => Navigator.push(
-                  context, MaterialPageRoute(builder: (_) => BencanaAlam()))),
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => BencanaAlam(tabItem: TabItem.beranda)))),
           LaporanItem(
               imageAssetPath: ClientPath.iconPath + '/image8.png',
               buttonText: 'GANGGUAN FISIOLOGI',
               buttonTextSize: SizeConfig.horizontalBlock * 3.25,
-              onButtonTap: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (_) => GangguanFisiologis()))),
+              onButtonTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) =>
+                          GangguanFisiologis(tabItem: TabItem.beranda)))),
           LaporanItem(
               imageAssetPath: ClientPath.iconPath + '/image9.png',
               buttonText: 'REKAPITULASI',

@@ -70,10 +70,9 @@ class CustomForm {
               child: TextFormField(
                   initialValue: value.toString(),
                   obscureText: obsecureText,
+                  readOnly: true,
                   decoration: InputDecoration(
                       counterText: '',
-                      isCollapsed: false,
-                      enabled: false,
                       isDense: true,
                       contentPadding: EdgeInsets.zero,
                       border: InputBorder.none))),
@@ -96,7 +95,8 @@ class CustomForm {
       int maxLength,
       String counterText = '',
       void Function() onEditingComplete,
-      void Function(String value) onChange}) {
+      void Function(String value) onChange,
+      List<TextInputFormatter> inputFormatters}) {
     SizeConfig().initSize(parentContext);
 
     TextStyle _hintStyle =
@@ -134,6 +134,7 @@ class CustomForm {
                 controller: controller,
                 keyboardType: keyboardType,
                 obscureText: obsecureText,
+                inputFormatters: inputFormatters,
                 decoration: InputDecoration(
                     counterText: counterText,
                     isCollapsed: false,

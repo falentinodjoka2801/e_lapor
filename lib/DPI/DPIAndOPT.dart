@@ -8,6 +8,7 @@ import 'package:e_lapor/globalWidgets/CustomForm.dart';
 import 'package:e_lapor/globalWidgets/CustomNavigation.dart';
 import 'package:e_lapor/globalWidgets/Loading.dart';
 import 'package:e_lapor/libraries/ClientPath.dart';
+import 'package:e_lapor/libraries/DecimalTextInputFormatter.dart';
 import 'package:e_lapor/libraries/ImagePickerDialog.dart';
 import 'package:e_lapor/libraries/LocalStorage.dart';
 import 'package:e_lapor/libraries/SPKey.dart';
@@ -18,6 +19,7 @@ import 'package:e_lapor/globalWidgets/Button.dart';
 
 import 'package:e_lapor/libraries/SizeConfig.dart';
 import 'package:e_lapor/libraries/CustomColors.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart' show ImageSource, PickedFile;
 import 'package:metadata/metadata.dart' as metaData;
@@ -241,9 +243,14 @@ class _DPIState extends State<DPIAndOPT> {
     DPIType _type = widget.type;
 
     Map<String, dynamic> _dataLogin = await AkunFuture.getDataLogin();
+    int _idProvinsiUser = _dataLogin[SPKey.provinsiUser];
+    int _idKabupatenKotaUser = _dataLogin[SPKey.kabupatenKotaUser];
     int _idUser = _dataLogin[SPKey.idUser];
 
-    List _kWK = await DPIFuture.getKecamatanWilayahKerja(idUser: _idUser);
+    List _kWK = await DPIFuture.getKecamatanWilayahKerja(
+        idProvinsi: _idProvinsiUser,
+        idKabupaten: _idKabupatenKotaUser,
+        idUser: _idUser);
     _kWK = _kWK.map((kecamatan) => kecamatan['kecamatan']).toList();
 
     List _komoditas = await DPIFuture.getKomoditas();
@@ -256,6 +263,8 @@ class _DPIState extends State<DPIAndOPT> {
         int _kecWilKerTerpilih = _detailDPI['kecamatan']['id'];
 
         List _desaWilKer = await DPIFuture.getDesaWilayahKerja(
+            idProvinsi: _idProvinsiUser,
+            idKabupaten: _idKabupatenKotaUser,
             idKecamatan: _kecWilKerTerpilih);
         _desaWilKer = _desaWilKer.map((desa) => desa['desa']).toList();
 
@@ -472,8 +481,8 @@ class _DPIState extends State<DPIAndOPT> {
       if (imageSource == ImageSource.camera) {
         Map<String, double> _savedLocation =
             await LocalStorage.getSavedLocation();
-        _latitude = _savedLocation['latitude'].toStringAsFixed(2);
-        _longitude = _savedLocation['longitude'].toStringAsFixed(2);
+        _latitude = _savedLocation['latitude'].toString();
+        _longitude = _savedLocation['longitude'].toString();
       } else {
         Map _gps = decodedExifData['gps'];
         if (_gps.containsKey('GPSLatitude') &&
@@ -491,8 +500,8 @@ class _DPIState extends State<DPIAndOPT> {
           double _longMin = _longitudeArray[1] / 60;
           double _longSec = _longitudeArray[2] / 3600;
 
-          _latitude = (_latDeg + _latMin + _latSec).toStringAsFixed(2);
-          _longitude = (_longDeg + _longMin + _longSec).toStringAsFixed(2);
+          _latitude = (_latDeg + _latMin + _latSec).toString();
+          _longitude = (_longDeg + _longMin + _longSec).toString();
         } else {
           String _title = 'Foto Tidak Valid!';
           String _subTitle =
@@ -548,6 +557,155 @@ class _DPIState extends State<DPIAndOPT> {
     }
   }
 
+  void _calculateSisaTerkenaJumlah() {
+    String _sTMR = _sisaTerkenaMenjadiRinganController.text;
+    String _sTMS = _sisaTerkenaMenjadiSedangController.text;
+    String _sTMB = _sisaTerkenaMenjadiBeratController.text;
+    String _sTMPuso = _sisaTerkenaMenjadiPusoController.text;
+    String _sTMPulih = _sisaTerkenaMenjadiPulihController.text;
+
+    double _sisaTerkenaRingan = (_sTMR.isNotEmpty) ? double.parse(_sTMR) : 0;
+    double _sisaTerkenaSedang = (_sTMS.isNotEmpty) ? double.parse(_sTMS) : 0;
+    double _sisaTerkenaBerat = (_sTMB.isNotEmpty) ? double.parse(_sTMB) : 0;
+    double _sisaTerkenaPuso =
+        (_sTMPuso.isNotEmpty) ? double.parse(_sTMPuso) : 0;
+    double _sisaTerkenaPulih =
+        (_sTMPulih.isNotEmpty) ? double.parse(_sTMPulih) : 0;
+
+    _sisaTerkenaJumlahController.text = (_sisaTerkenaRingan +
+            _sisaTerkenaSedang +
+            _sisaTerkenaBerat +
+            _sisaTerkenaPuso +
+            _sisaTerkenaPulih)
+        .toString();
+  }
+
+  void _calculateLuasTambahJumlah() {
+    String _lTR = _luasTambahRinganController.text;
+    String _lTS = _luasTambahSedangController.text;
+    String _lTB = _luasTambahBeratController.text;
+    String _lTPuso = _luasTambahPusoController.text;
+    String _lTPulih = _luasTambahPulihController.text;
+
+    double _luasTambahRingan = (_lTR.isNotEmpty) ? double.parse(_lTR) : 0;
+    double _luasTambahSedang = (_lTS.isNotEmpty) ? double.parse(_lTS) : 0;
+    double _luasTambahBerat = (_lTB.isNotEmpty) ? double.parse(_lTB) : 0;
+    double _luasTambahPuso = (_lTPuso.isNotEmpty) ? double.parse(_lTPuso) : 0;
+    double _luasTambahPulih =
+        (_lTPulih.isNotEmpty) ? double.parse(_lTPulih) : 0;
+
+    _luasTambahJumlahController.text = (_luasTambahRingan +
+            _luasTambahSedang +
+            _luasTambahBerat +
+            _luasTambahPuso +
+            _luasTambahPulih)
+        .toString();
+  }
+
+  void _calculateKeadaanTerkena() {
+    String _sT = _sisaTerkenaController.text;
+    String _lT = _luasTambahTerkenaController.text;
+
+    double _sisaTerkena = (_sT.isNotEmpty) ? double.parse(_sT) : 0;
+    double _luasTambahTerkena = (_lT.isNotEmpty) ? double.parse(_lT) : 0;
+
+    _keadaanTerkenaController.text =
+        (_sisaTerkena + _luasTambahTerkena).toString();
+  }
+
+  void _calculateKeadaanRingan() {
+    String _sTMR = _sisaTerkenaMenjadiRinganController.text;
+    String _lTR = _luasTambahRinganController.text;
+
+    double _sisaTerkenaRingan = (_sTMR.isNotEmpty) ? double.parse(_sTMR) : 0;
+    double _luasTambahRingan = (_lTR.isNotEmpty) ? double.parse(_lTR) : 0;
+
+    _keadaanRinganController.text =
+        (_sisaTerkenaRingan + _luasTambahRingan).toString();
+    _calculateKeadaanJumlah();
+  }
+
+  void _calculateKeadaanSedang() {
+    String _sTMS = _sisaTerkenaMenjadiSedangController.text;
+    String _lTS = _luasTambahSedangController.text;
+
+    double _sisaTerkenaSedang = (_sTMS.isNotEmpty) ? double.parse(_sTMS) : 0;
+    double _luasTambahSedang = (_lTS.isNotEmpty) ? double.parse(_lTS) : 0;
+
+    _keadaanSedangController.text =
+        (_sisaTerkenaSedang + _luasTambahSedang).toString();
+    _calculateKeadaanJumlah();
+  }
+
+  void _calculateKeadaanBerat() {
+    String _sTB = _sisaTerkenaMenjadiBeratController.text;
+    String _lTB = _luasTambahBeratController.text;
+
+    double _sisaTerkenaBerat = (_sTB.isNotEmpty) ? double.parse(_sTB) : 0;
+    double _luasTambahBerat = (_lTB.isNotEmpty) ? double.parse(_lTB) : 0;
+    _keadaanBeratController.text =
+        (_sisaTerkenaBerat + _luasTambahBerat).toString();
+    _calculateKeadaanJumlah();
+  }
+
+  void _calculateKeadaanPuso() {
+    String _sTMPuso = _sisaTerkenaMenjadiPusoController.text;
+    String _lTPuso = _luasTambahPusoController.text;
+
+    double _sisaTerkenaPuso =
+        (_sTMPuso.isNotEmpty) ? double.parse(_sTMPuso) : 0;
+    double _luasTambahPuso = (_lTPuso.isNotEmpty) ? double.parse(_lTPuso) : 0;
+
+    _keadaanPusoController.text =
+        (_sisaTerkenaPuso + _luasTambahPuso).toString();
+    _calculateKeadaanJumlah();
+  }
+
+  void _calculateKeadaanPulih() {
+    String _sTMPulih = _sisaTerkenaMenjadiPulihController.text;
+    String _lTPulih = _luasTambahPulihController.text;
+
+    double _sisaTerkenaPulih =
+        (_sTMPulih.isNotEmpty) ? double.parse(_sTMPulih) : 0;
+    double _luasTambahPulih =
+        (_lTPulih.isNotEmpty) ? double.parse(_lTPulih) : 0;
+    _keadaanPulihController.text =
+        (_sisaTerkenaPulih + _luasTambahPulih).toString();
+
+    _calculateKeadaanJumlah();
+  }
+
+  void _calculateKeadaanJumlah() {
+    String _kR = _keadaanRinganController.text;
+    String _kS = _keadaanSedangController.text;
+    String _kB = _keadaanBeratController.text;
+    String _kPuso = _keadaanPusoController.text;
+    String _kPulih = _keadaanPulihController.text;
+
+    double _keadaanRingan = (_kR.isNotEmpty) ? double.parse(_kR) : 0;
+    double _keadaanSedang = (_kS.isNotEmpty) ? double.parse(_kS) : 0;
+    double _keadaanBerat = (_kB.isNotEmpty) ? double.parse(_kB) : 0;
+    double _keadaanPuso = (_kPuso.isNotEmpty) ? double.parse(_kPuso) : 0;
+    double _keadaanPulih = (_kPulih.isNotEmpty) ? double.parse(_kPulih) : 0;
+
+    _keadaanJumlahController.text = (_keadaanRingan +
+            _keadaanSedang +
+            _keadaanBerat +
+            _keadaanPuso +
+            _keadaanPulih)
+        .toStringAsFixed(2);
+  }
+
+  void _calculateKeadaanSurut() {
+    String _sS = _sisaTerkenaMenjadiSurutController.text;
+    String _lTS = _luasTambahSurutController.text;
+
+    double _sisaSurut = (_sS.isNotEmpty) ? double.parse(_sS) : 0;
+    double _luasTambahSurut = (_lTS.isNotEmpty) ? double.parse(_lTS) : 0;
+
+    _keadaanSurutController.text = (_sisaSurut + _luasTambahSurut).toString();
+  }
+
   Widget build(BuildContext context) {
     SizeConfig().initSize(context);
 
@@ -600,29 +758,12 @@ class _DPIState extends State<DPIAndOPT> {
       _readyToShow = (_fotoPath == null) ? false : true;
     }
 
-    DecorationImage _fotoManagerAdd() {
-      if (_foto != null) {
-        return DecorationImage(
-            fit: BoxFit.contain, image: FileImage(File(_foto.path)));
-      }
-      return null;
-    }
-
-    DecorationImage _fotoManagerNotAdd() {
-      if (_fotoPath != null) {
-        // _foto != null artinya ada perubahan mengambil gambar
-        return DecorationImage(
-            fit: BoxFit.contain,
-            image: (_foto != null)
-                ? FileImage(File(_foto.path))
-                : NetworkImage(ServerPath.apiBaseURL + '/elapor/' + _fotoPath));
-      }
-      return null;
-    }
-
     Widget _pinGmapsIcon = SvgPicture.asset(ClientPath.svgPath + '/map-pin.svg',
         width: SizeConfig.horizontalBlock * 5.5,
         color: CustomColors.dangerColor);
+
+    TextInputFormatter _comaFormatter =
+        FilteringTextInputFormatter.deny(RegExp(','));
 
     return Scaffold(
         appBar: CustomNavigation.appBar(
@@ -659,43 +800,11 @@ class _DPIState extends State<DPIAndOPT> {
                               decoration: BoxDecoration(
                                   color: CustomColors.eLaporIconColor),
                             )),
-                        Padding(
-                            padding: EdgeInsets.only(top: _paddingTop),
-                            child: GestureDetector(
-                              onTap: (_action == DPIAndOPTAction.detail)
-                                  ? null
-                                  : () async {
-                                      ImageSource _imageSource =
-                                          await ImagePickerDialog
-                                              .showImagePicker(context,
-                                                  isDismissible: true);
-                                      if (_imageSource != null) {
-                                        PickedFile _pickedFile =
-                                            await ImagePickerDialog.takePicture(
-                                                context, _imageSource);
-
-                                        if (_pickedFile != null) {
-                                          File _file = File(_pickedFile.path);
-                                          List<int> _filesIntBytes =
-                                              _file.readAsBytesSync();
-                                          metaData.CallBack _callBack =
-                                              metaData.MetaData.exifData(
-                                                  _filesIntBytes);
-
-                                          if (_callBack != null) {
-                                            dynamic _exifData =
-                                                _callBack.exifData;
-                                            if (_exifData != null) {
-                                              await _setData(context,
-                                                  pickedFile: _pickedFile,
-                                                  decodedExifData: _exifData,
-                                                  imageSource: _imageSource);
-                                            }
-                                          }
-                                        }
-                                      }
-                                    },
-                              child: Container(
+                        (_action == DPIAndOPTAction.detail ||
+                                _action == DPIAndOPTAction.edit)
+                            ? Padding(
+                                padding: EdgeInsets.only(top: _paddingTop),
+                                child: Container(
                                   constraints: BoxConstraints(
                                       minHeight:
                                           SizeConfig.horizontalBlock * 45.0),
@@ -703,28 +812,78 @@ class _DPIState extends State<DPIAndOPT> {
                                       vertical:
                                           SizeConfig.horizontalBlock * 10.0),
                                   decoration: BoxDecoration(
-                                      image: (_action ==
-                                                  DPIAndOPTAction.detail ||
-                                              _action == DPIAndOPTAction.edit)
-                                          ? _fotoManagerNotAdd()
-                                          : _fotoManagerAdd(),
+                                      image: DecorationImage(
+                                          fit: BoxFit.contain,
+                                          image: (_foto != null)
+                                              ? FileImage(File(_foto.path))
+                                              : NetworkImage(
+                                                  ServerPath.apiBaseURL +
+                                                      '/elapor/' +
+                                                      _fotoPath)),
                                       borderRadius: BorderRadius.circular(15.0),
                                       color: Color(0X5534C369)),
-                                  child: Center(
-                                    child: (_action == DPIAndOPTAction.detail ||
-                                            _action == DPIAndOPTAction.edit)
-                                        ? SizedBox()
-                                        : (_foto != null)
-                                            ? SizedBox()
-                                            : Image.asset(
-                                                ClientPath.assetsImg +
-                                                    '/upload.png',
-                                                width:
-                                                    SizeConfig.horizontalBlock *
-                                                        25.0,
-                                              ),
-                                  )),
-                            )),
+                                ))
+                            : (_foto != null)
+                                ? Padding(
+                                    padding: EdgeInsets.only(top: _paddingTop),
+                                    child: Container(
+                                      constraints: BoxConstraints(
+                                          minHeight:
+                                              SizeConfig.horizontalBlock *
+                                                  45.0),
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: SizeConfig.horizontalBlock *
+                                              10.0),
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              fit: BoxFit.contain,
+                                              image:
+                                                  FileImage(File(_foto.path))),
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
+                                          color: Color(0X5534C369)),
+                                    ))
+                                : SizedBox(),
+                        (_action == DPIAndOPTAction.add ||
+                                _action == DPIAndOPTAction.edit)
+                            ? Padding(
+                                padding: EdgeInsets.only(top: _paddingTop),
+                                child: Button.submitButton(
+                                    context, 'PILIH/AMBIL FOTO', () async {
+                                  ImageSource _imageSource =
+                                      await ImagePickerDialog.showImagePicker(
+                                          context,
+                                          isDismissible: true);
+                                  if (_imageSource != null) {
+                                    PickedFile _pickedFile =
+                                        await ImagePickerDialog.takePicture(
+                                            context, _imageSource);
+
+                                    if (_pickedFile != null) {
+                                      File _file = File(_pickedFile.path);
+                                      List<int> _filesIntBytes =
+                                          _file.readAsBytesSync();
+                                      metaData.CallBack _callBack =
+                                          metaData.MetaData.exifData(
+                                              _filesIntBytes);
+
+                                      if (_callBack != null) {
+                                        dynamic _exifData = _callBack.exifData;
+                                        if (_exifData != null) {
+                                          await _setData(context,
+                                              pickedFile: _pickedFile,
+                                              decodedExifData: _exifData,
+                                              imageSource: _imageSource);
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                    color: CustomColors.eLaporGreen,
+                                    trailing: Icon(
+                                        Icons.arrow_forward_ios_sharp,
+                                        color: CustomColors.eLaporWhite)))
+                            : SizedBox(),
                         (_showBulan)
                             ? Padding(
                                 padding: EdgeInsets.only(top: _paddingTop),
@@ -745,6 +904,11 @@ class _DPIState extends State<DPIAndOPT> {
                                           controller: _bulanController,
                                           hintText: 'Masukkan Nilai',
                                           keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            DecimalTextInputFormatter(
+                                                decimalRange: 2),
+                                            _comaFormatter
+                                          ],
                                           borderColor: _borderColor,
                                           leadingAndHintTextSpacing:
                                               _leadingAndHintTextSpacing)
@@ -796,6 +960,11 @@ class _DPIState extends State<DPIAndOPT> {
                                           controller: _latitudeController,
                                           hintText: 'Masukkan Nilai',
                                           keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            DecimalTextInputFormatter(
+                                                decimalRange: 2),
+                                            _comaFormatter
+                                          ],
                                           borderColor: _borderColor,
                                           leading: _pinGmapsIcon,
                                           leadingAndHintTextSpacing:
@@ -822,6 +991,11 @@ class _DPIState extends State<DPIAndOPT> {
                                           controller: _longitudeController,
                                           hintText: 'Masukkan Nilai',
                                           keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            DecimalTextInputFormatter(
+                                                decimalRange: 2),
+                                            _comaFormatter
+                                          ],
                                           borderColor: _borderColor,
                                           leading: _pinGmapsIcon,
                                           leadingAndHintTextSpacing:
@@ -877,7 +1051,7 @@ class _DPIState extends State<DPIAndOPT> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 CustomForm.textFieldLabel(context,
-                                    label: 'Kecamatan wilayah kerja',
+                                    label: 'Kecamatan',
                                     color: CustomColors.eLaporBlack,
                                     fontSize: _textFieldLabelFontSize,
                                     fontWeight: _textFieldLabelFontWeight),
@@ -891,6 +1065,11 @@ class _DPIState extends State<DPIAndOPT> {
                                         items: _kecamatanWilKer,
                                         value: _kecamatanWilKerSelected,
                                         onChanged: (selected) async {
+                                        setState(() {
+                                          _desaWilKerState = [];
+                                          _desaWilKerSelected = 0;
+                                        });
+
                                         Map<String, dynamic> _dataLogin =
                                             await AkunFuture.getDataLogin();
                                         int _provinsiUser =
@@ -913,8 +1092,7 @@ class _DPIState extends State<DPIAndOPT> {
                                           _desaWilKerState = _dWK;
                                         });
                                       },
-                                        defaultOptionText:
-                                            'Pilih Kecamatan Wilayah Kerja',
+                                        defaultOptionText: 'Pilih Kecamatan',
                                         defaultOptionValue: 0)
                                     : CustomForm.readOnlyTextField(context,
                                         leading: _pinGmapsIcon,
@@ -930,7 +1108,7 @@ class _DPIState extends State<DPIAndOPT> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 CustomForm.textFieldLabel(context,
-                                    label: 'desa wilayah kerja',
+                                    label: 'desa/kelurahan',
                                     color: CustomColors.eLaporBlack,
                                     fontSize: _textFieldLabelFontSize,
                                     fontWeight: _textFieldLabelFontWeight),
@@ -948,8 +1126,7 @@ class _DPIState extends State<DPIAndOPT> {
                                           _desaWilKerSelected = selected;
                                         });
                                       },
-                                        defaultOptionText:
-                                            'Pilih Desa Wilayah Kerja',
+                                        defaultOptionText: 'Pilih Desa',
                                         defaultOptionValue: 0)
                                     : CustomForm.readOnlyTextField(context,
                                         leading: _pinGmapsIcon,
@@ -1023,7 +1200,7 @@ class _DPIState extends State<DPIAndOPT> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 CustomForm.textFieldLabel(context,
-                                    label: 'Umur persemaian',
+                                    label: 'Umur persemaian (hari)',
                                     color: CustomColors.eLaporBlack,
                                     fontSize: _textFieldLabelFontSize,
                                     fontWeight: _textFieldLabelFontWeight),
@@ -1034,6 +1211,11 @@ class _DPIState extends State<DPIAndOPT> {
                                         _leadingAndHintTextSpacing,
                                     enabled: _enableInput,
                                     keyboardType: TextInputType.number,
+                                    inputFormatters: [
+                                      DecimalTextInputFormatter(
+                                          decimalRange: 2),
+                                      _comaFormatter
+                                    ],
                                     borderColor: _borderColor,
                                     hintText: 'Masukkan Nilai',
                                     controller: _umurPersemaianController,
@@ -1047,7 +1229,7 @@ class _DPIState extends State<DPIAndOPT> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 CustomForm.textFieldLabel(context,
-                                    label: 'Luas persemaian',
+                                    label: 'Luas persemaian (ha)',
                                     color: CustomColors.eLaporBlack,
                                     fontSize: _textFieldLabelFontSize,
                                     fontWeight: _textFieldLabelFontWeight),
@@ -1058,6 +1240,11 @@ class _DPIState extends State<DPIAndOPT> {
                                         _leadingAndHintTextSpacing,
                                     enabled: _enableInput,
                                     keyboardType: TextInputType.number,
+                                    inputFormatters: [
+                                      DecimalTextInputFormatter(
+                                          decimalRange: 2),
+                                      _comaFormatter
+                                    ],
                                     borderColor: _borderColor,
                                     hintText: 'Masukkan Nilai',
                                     controller: _luasPersemaianController,
@@ -1071,7 +1258,7 @@ class _DPIState extends State<DPIAndOPT> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 CustomForm.textFieldLabel(context,
-                                    label: 'Umur tanam',
+                                    label: 'HST (hari)',
                                     color: CustomColors.eLaporBlack,
                                     fontSize: _textFieldLabelFontSize,
                                     fontWeight: _textFieldLabelFontWeight),
@@ -1082,6 +1269,11 @@ class _DPIState extends State<DPIAndOPT> {
                                         _leadingAndHintTextSpacing,
                                     enabled: _enableInput,
                                     keyboardType: TextInputType.number,
+                                    inputFormatters: [
+                                      DecimalTextInputFormatter(
+                                          decimalRange: 2),
+                                      _comaFormatter
+                                    ],
                                     hintText: 'Masukkan Nilai',
                                     borderColor: _borderColor,
                                     controller: _umurTanamController,
@@ -1095,7 +1287,7 @@ class _DPIState extends State<DPIAndOPT> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 CustomForm.textFieldLabel(context,
-                                    label: 'Luas tanam',
+                                    label: 'Luas tanam (ha)',
                                     color: CustomColors.eLaporBlack,
                                     fontSize: _textFieldLabelFontSize,
                                     fontWeight: _textFieldLabelFontWeight),
@@ -1105,6 +1297,11 @@ class _DPIState extends State<DPIAndOPT> {
                                     leadingAndHintTextSpacing:
                                         _leadingAndHintTextSpacing,
                                     keyboardType: TextInputType.number,
+                                    inputFormatters: [
+                                      DecimalTextInputFormatter(
+                                          decimalRange: 2),
+                                      _comaFormatter
+                                    ],
                                     enabled: _enableInput,
                                     hintText: 'Masukkan Nilai',
                                     borderColor: _borderColor,
@@ -1119,7 +1316,7 @@ class _DPIState extends State<DPIAndOPT> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 CustomForm.textFieldLabel(context,
-                                    label: 'Periode',
+                                    label: 'Periode Laporan',
                                     color: CustomColors.eLaporBlack,
                                     fontSize: _textFieldLabelFontSize,
                                     fontWeight: _textFieldLabelFontWeight),
@@ -1166,6 +1363,11 @@ class _DPIState extends State<DPIAndOPT> {
                                           leadingAndHintTextSpacing:
                                               _leadingAndHintTextSpacing,
                                           keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            DecimalTextInputFormatter(
+                                                decimalRange: 2),
+                                            _comaFormatter
+                                          ],
                                           enabled: _enableInput,
                                           hintText: 'Masukkan Nilai',
                                           borderColor: _borderColor,
@@ -1219,6 +1421,11 @@ class _DPIState extends State<DPIAndOPT> {
                                           leadingAndHintTextSpacing:
                                               _leadingAndHintTextSpacing,
                                           keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            DecimalTextInputFormatter(
+                                                decimalRange: 2),
+                                            _comaFormatter
+                                          ],
                                           enabled: _enableInput,
                                           hintText: 'Masukkan Nilai',
                                           borderColor: _borderColor,
@@ -1261,7 +1468,7 @@ class _DPIState extends State<DPIAndOPT> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       CustomForm.textFieldLabel(context,
-                                          label: 'Sisa Terkena',
+                                          label: 'Sisa Terkena (ha)',
                                           color: CustomColors.eLaporBlack,
                                           fontSize: _textFieldLabelFontSize,
                                           fontWeight:
@@ -1272,10 +1479,18 @@ class _DPIState extends State<DPIAndOPT> {
                                           leadingAndHintTextSpacing:
                                               _leadingAndHintTextSpacing,
                                           keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            DecimalTextInputFormatter(
+                                                decimalRange: 2),
+                                            _comaFormatter
+                                          ],
                                           hintText: 'Masukkan Nilai',
                                           enabled: _enableInput,
                                           borderColor: _borderColor,
                                           controller: _sisaTerkenaController,
+                                          onChange: (value) {
+                                            _calculateKeadaanTerkena();
+                                          },
                                           onEditingComplete: () =>
                                               _focusScope.nextFocus())
                                     ]),
@@ -1289,7 +1504,8 @@ class _DPIState extends State<DPIAndOPT> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       CustomForm.textFieldLabel(context,
-                                          label: 'Sisa Terkena Menjadi Ringan',
+                                          label:
+                                              'Sisa Terkena Menjadi (Ringan) (ha)',
                                           color: CustomColors.eLaporBlack,
                                           fontSize: _textFieldLabelFontSize,
                                           fontWeight:
@@ -1300,13 +1516,22 @@ class _DPIState extends State<DPIAndOPT> {
                                           leadingAndHintTextSpacing:
                                               _leadingAndHintTextSpacing,
                                           keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            DecimalTextInputFormatter(
+                                                decimalRange: 2),
+                                            _comaFormatter
+                                          ],
                                           enabled: _enableInput,
                                           hintText: 'Masukkan Nilai',
                                           borderColor: _borderColor,
                                           controller:
                                               _sisaTerkenaMenjadiRinganController,
                                           onEditingComplete: () =>
-                                              _focusScope.nextFocus())
+                                              _focusScope.nextFocus(),
+                                          onChange: (value) {
+                                            _calculateSisaTerkenaJumlah();
+                                            _calculateKeadaanRingan();
+                                          })
                                     ]),
                               )
                             : SizedBox(),
@@ -1318,7 +1543,8 @@ class _DPIState extends State<DPIAndOPT> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       CustomForm.textFieldLabel(context,
-                                          label: 'Sisa Terkena Menjadi Sedang',
+                                          label:
+                                              'Sisa Terkena Menjadi (Sedang) (ha)',
                                           color: CustomColors.eLaporBlack,
                                           fontSize: _textFieldLabelFontSize,
                                           fontWeight:
@@ -1329,11 +1555,20 @@ class _DPIState extends State<DPIAndOPT> {
                                           leadingAndHintTextSpacing:
                                               _leadingAndHintTextSpacing,
                                           keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            DecimalTextInputFormatter(
+                                                decimalRange: 2),
+                                            _comaFormatter
+                                          ],
                                           enabled: _enableInput,
                                           hintText: 'Masukkan Nilai',
                                           borderColor: _borderColor,
                                           controller:
                                               _sisaTerkenaMenjadiSedangController,
+                                          onChange: (value) {
+                                            _calculateSisaTerkenaJumlah();
+                                            _calculateKeadaanSedang();
+                                          },
                                           onEditingComplete: () =>
                                               _focusScope.nextFocus())
                                     ]),
@@ -1347,7 +1582,8 @@ class _DPIState extends State<DPIAndOPT> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       CustomForm.textFieldLabel(context,
-                                          label: 'Sisa Terkena Menjadi Berat',
+                                          label:
+                                              'Sisa Terkena Menjadi (Berat) (ha)',
                                           color: CustomColors.eLaporBlack,
                                           fontSize: _textFieldLabelFontSize,
                                           fontWeight:
@@ -1358,11 +1594,20 @@ class _DPIState extends State<DPIAndOPT> {
                                           leadingAndHintTextSpacing:
                                               _leadingAndHintTextSpacing,
                                           keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            DecimalTextInputFormatter(
+                                                decimalRange: 2),
+                                            _comaFormatter
+                                          ],
                                           hintText: 'Masukkan Nilai',
                                           enabled: _enableInput,
                                           borderColor: _borderColor,
                                           controller:
                                               _sisaTerkenaMenjadiBeratController,
+                                          onChange: (value) {
+                                            _calculateSisaTerkenaJumlah();
+                                            _calculateKeadaanBerat();
+                                          },
                                           onEditingComplete: () =>
                                               _focusScope.nextFocus())
                                     ]),
@@ -1376,7 +1621,8 @@ class _DPIState extends State<DPIAndOPT> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       CustomForm.textFieldLabel(context,
-                                          label: 'Sisa Terkena Menjadi Puso',
+                                          label:
+                                              'Sisa Terkena Menjadi (Puso) (ha)',
                                           color: CustomColors.eLaporBlack,
                                           fontSize: _textFieldLabelFontSize,
                                           fontWeight:
@@ -1387,9 +1633,18 @@ class _DPIState extends State<DPIAndOPT> {
                                           leadingAndHintTextSpacing:
                                               _leadingAndHintTextSpacing,
                                           keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            DecimalTextInputFormatter(
+                                                decimalRange: 2),
+                                            _comaFormatter
+                                          ],
                                           hintText: 'Masukkan Nilai',
                                           enabled: _enableInput,
                                           borderColor: _borderColor,
+                                          onChange: (value) {
+                                            _calculateSisaTerkenaJumlah();
+                                            _calculateKeadaanPuso();
+                                          },
                                           controller:
                                               _sisaTerkenaMenjadiPusoController,
                                           onEditingComplete: () =>
@@ -1405,7 +1660,8 @@ class _DPIState extends State<DPIAndOPT> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       CustomForm.textFieldLabel(context,
-                                          label: 'Sisa Terkena Menjadi Surut',
+                                          label:
+                                              'Sisa Terkena Menjadi (Surut) (ha)',
                                           color: CustomColors.eLaporBlack,
                                           fontSize: _textFieldLabelFontSize,
                                           fontWeight:
@@ -1416,11 +1672,19 @@ class _DPIState extends State<DPIAndOPT> {
                                           leadingAndHintTextSpacing:
                                               _leadingAndHintTextSpacing,
                                           keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            DecimalTextInputFormatter(
+                                                decimalRange: 2),
+                                            _comaFormatter
+                                          ],
                                           hintText: 'Masukkan Nilai',
                                           enabled: _enableInput,
                                           borderColor: _borderColor,
                                           controller:
                                               _sisaTerkenaMenjadiSurutController,
+                                          onChange: (value) {
+                                            _calculateKeadaanSurut();
+                                          },
                                           onEditingComplete: () =>
                                               _focusScope.nextFocus())
                                     ]),
@@ -1434,7 +1698,8 @@ class _DPIState extends State<DPIAndOPT> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       CustomForm.textFieldLabel(context,
-                                          label: 'Sisa Terkena Menjadi Pulih',
+                                          label:
+                                              'Sisa Terkena Menjadi (Pulih) (ha)',
                                           color: CustomColors.eLaporBlack,
                                           fontSize: _textFieldLabelFontSize,
                                           fontWeight:
@@ -1445,11 +1710,20 @@ class _DPIState extends State<DPIAndOPT> {
                                           leadingAndHintTextSpacing:
                                               _leadingAndHintTextSpacing,
                                           keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            DecimalTextInputFormatter(
+                                                decimalRange: 2),
+                                            _comaFormatter
+                                          ],
                                           hintText: 'Masukkan Nilai',
                                           enabled: _enableInput,
                                           borderColor: _borderColor,
                                           controller:
                                               _sisaTerkenaMenjadiPulihController,
+                                          onChange: (value) {
+                                            _calculateSisaTerkenaJumlah();
+                                            _calculateKeadaanPulih();
+                                          },
                                           onEditingComplete: () =>
                                               _focusScope.nextFocus())
                                     ]),
@@ -1463,7 +1737,7 @@ class _DPIState extends State<DPIAndOPT> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       CustomForm.textFieldLabel(context,
-                                          label: 'Sisa Terkena  (Jumlah)',
+                                          label: 'Sisa Terkena (Jumlah) (ha)',
                                           color: CustomColors.eLaporBlack,
                                           fontSize: _textFieldLabelFontSize,
                                           fontWeight:
@@ -1474,8 +1748,13 @@ class _DPIState extends State<DPIAndOPT> {
                                           leadingAndHintTextSpacing:
                                               _leadingAndHintTextSpacing,
                                           keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            DecimalTextInputFormatter(
+                                                decimalRange: 2),
+                                            _comaFormatter
+                                          ],
                                           hintText: 'Masukkan Nilai',
-                                          enabled: _enableInput,
+                                          enabled: false,
                                           borderColor: _borderColor,
                                           controller:
                                               _sisaTerkenaJumlahController,
@@ -1492,7 +1771,7 @@ class _DPIState extends State<DPIAndOPT> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       CustomForm.textFieldLabel(context,
-                                          label: 'Luas Tambah Terkena',
+                                          label: 'Luas Tambah Terkena (ha)',
                                           color: CustomColors.eLaporBlack,
                                           fontSize: _textFieldLabelFontSize,
                                           fontWeight:
@@ -1503,11 +1782,19 @@ class _DPIState extends State<DPIAndOPT> {
                                           leadingAndHintTextSpacing:
                                               _leadingAndHintTextSpacing,
                                           keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            DecimalTextInputFormatter(
+                                                decimalRange: 2),
+                                            _comaFormatter
+                                          ],
                                           hintText: 'Masukkan Nilai',
                                           enabled: _enableInput,
                                           borderColor: _borderColor,
                                           controller:
                                               _luasTambahTerkenaController,
+                                          onChange: (value) {
+                                            _calculateKeadaanTerkena();
+                                          },
                                           onEditingComplete: () =>
                                               _focusScope.nextFocus())
                                     ]),
@@ -1521,7 +1808,7 @@ class _DPIState extends State<DPIAndOPT> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       CustomForm.textFieldLabel(context,
-                                          label: 'Luas Tambah Ringan',
+                                          label: 'Luas Tambah (Ringan) (ha)',
                                           color: CustomColors.eLaporBlack,
                                           fontSize: _textFieldLabelFontSize,
                                           fontWeight:
@@ -1532,11 +1819,20 @@ class _DPIState extends State<DPIAndOPT> {
                                           leadingAndHintTextSpacing:
                                               _leadingAndHintTextSpacing,
                                           keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            DecimalTextInputFormatter(
+                                                decimalRange: 2),
+                                            _comaFormatter
+                                          ],
                                           hintText: 'Masukkan Nilai',
                                           enabled: _enableInput,
                                           borderColor: _borderColor,
                                           controller:
                                               _luasTambahRinganController,
+                                          onChange: (value) {
+                                            _calculateLuasTambahJumlah();
+                                            _calculateKeadaanRingan();
+                                          },
                                           onEditingComplete: () =>
                                               _focusScope.nextFocus())
                                     ]),
@@ -1550,7 +1846,7 @@ class _DPIState extends State<DPIAndOPT> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       CustomForm.textFieldLabel(context,
-                                          label: 'Luas Tambah Sedang',
+                                          label: 'Luas Tambah (Sedang) (ha)',
                                           color: CustomColors.eLaporBlack,
                                           fontSize: _textFieldLabelFontSize,
                                           fontWeight:
@@ -1561,11 +1857,20 @@ class _DPIState extends State<DPIAndOPT> {
                                           leadingAndHintTextSpacing:
                                               _leadingAndHintTextSpacing,
                                           keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            DecimalTextInputFormatter(
+                                                decimalRange: 2),
+                                            _comaFormatter
+                                          ],
                                           hintText: 'Masukkan Nilai',
                                           enabled: _enableInput,
                                           borderColor: _borderColor,
                                           controller:
                                               _luasTambahSedangController,
+                                          onChange: (value) {
+                                            _calculateLuasTambahJumlah();
+                                            _calculateKeadaanSedang();
+                                          },
                                           onEditingComplete: () =>
                                               _focusScope.nextFocus())
                                     ]),
@@ -1579,7 +1884,7 @@ class _DPIState extends State<DPIAndOPT> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       CustomForm.textFieldLabel(context,
-                                          label: 'Luas Tambah Berat',
+                                          label: 'Luas Tambah (Berat) (ha)',
                                           color: CustomColors.eLaporBlack,
                                           fontSize: _textFieldLabelFontSize,
                                           fontWeight:
@@ -1590,11 +1895,21 @@ class _DPIState extends State<DPIAndOPT> {
                                           leadingAndHintTextSpacing:
                                               _leadingAndHintTextSpacing,
                                           keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            DecimalTextInputFormatter(
+                                                decimalRange: 2),
+                                            _comaFormatter
+                                          ],
                                           hintText: 'Masukkan Nilai',
                                           borderColor: _borderColor,
                                           enabled: _enableInput,
                                           controller:
                                               _luasTambahBeratController,
+                                          onChange: (value) {
+                                            _calculateLuasTambahJumlah();
+
+                                            _calculateKeadaanBerat();
+                                          },
                                           onEditingComplete: () =>
                                               _focusScope.nextFocus())
                                     ]),
@@ -1606,7 +1921,7 @@ class _DPIState extends State<DPIAndOPT> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 CustomForm.textFieldLabel(context,
-                                    label: 'Luas Tambah Puso',
+                                    label: 'Luas Tambah (Puso) (ha)',
                                     color: CustomColors.eLaporBlack,
                                     fontSize: _textFieldLabelFontSize,
                                     fontWeight: _textFieldLabelFontWeight),
@@ -1616,43 +1931,23 @@ class _DPIState extends State<DPIAndOPT> {
                                     leadingAndHintTextSpacing:
                                         _leadingAndHintTextSpacing,
                                     keyboardType: TextInputType.number,
+                                    inputFormatters: [
+                                      DecimalTextInputFormatter(
+                                          decimalRange: 2),
+                                      _comaFormatter
+                                    ],
                                     hintText: 'Masukkan Nilai',
                                     enabled: _enableInput,
                                     borderColor: _borderColor,
                                     controller: _luasTambahPusoController,
+                                    onChange: (value) {
+                                      _calculateLuasTambahJumlah();
+                                      _calculateKeadaanPuso();
+                                    },
                                     onEditingComplete: () =>
                                         _focusScope.nextFocus())
                               ]),
                         ),
-                        (widget.luasTambahPulih)
-                            ? Padding(
-                                padding: EdgeInsets.only(top: _paddingTop),
-                                child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      CustomForm.textFieldLabel(context,
-                                          label: 'Luas Tambah Pulih',
-                                          color: CustomColors.eLaporBlack,
-                                          fontSize: _textFieldLabelFontSize,
-                                          fontWeight:
-                                              _textFieldLabelFontWeight),
-                                      SizedBox(height: _labelAndFieldSpace),
-                                      CustomForm.textField(context,
-                                          leading: _pinGmapsIcon,
-                                          leadingAndHintTextSpacing:
-                                              _leadingAndHintTextSpacing,
-                                          keyboardType: TextInputType.number,
-                                          hintText: 'Masukkan Nilai',
-                                          enabled: _enableInput,
-                                          borderColor: _borderColor,
-                                          controller:
-                                              _luasTambahPulihController,
-                                          onEditingComplete: () =>
-                                              _focusScope.nextFocus())
-                                    ]),
-                              )
-                            : SizedBox(),
                         (widget.luasTambahSurut)
                             ? Padding(
                                 padding: EdgeInsets.only(top: _paddingTop),
@@ -1661,7 +1956,7 @@ class _DPIState extends State<DPIAndOPT> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       CustomForm.textFieldLabel(context,
-                                          label: 'Luas Tambah Surut',
+                                          label: 'Luas Tambah (Surut) (ha)',
                                           color: CustomColors.eLaporBlack,
                                           fontSize: _textFieldLabelFontSize,
                                           fontWeight:
@@ -1672,11 +1967,57 @@ class _DPIState extends State<DPIAndOPT> {
                                           leadingAndHintTextSpacing:
                                               _leadingAndHintTextSpacing,
                                           keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            DecimalTextInputFormatter(
+                                                decimalRange: 2),
+                                            _comaFormatter
+                                          ],
                                           hintText: 'Masukkan Nilai',
                                           enabled: _enableInput,
                                           borderColor: _borderColor,
                                           controller:
                                               _luasTambahSurutController,
+                                          onChange: (value) {
+                                            _calculateKeadaanSurut();
+                                          },
+                                          onEditingComplete: () =>
+                                              _focusScope.nextFocus())
+                                    ]),
+                              )
+                            : SizedBox(),
+                        (widget.luasTambahPulih)
+                            ? Padding(
+                                padding: EdgeInsets.only(top: _paddingTop),
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      CustomForm.textFieldLabel(context,
+                                          label: 'Luas Tambah (Pulih) (ha)',
+                                          color: CustomColors.eLaporBlack,
+                                          fontSize: _textFieldLabelFontSize,
+                                          fontWeight:
+                                              _textFieldLabelFontWeight),
+                                      SizedBox(height: _labelAndFieldSpace),
+                                      CustomForm.textField(context,
+                                          leading: _pinGmapsIcon,
+                                          leadingAndHintTextSpacing:
+                                              _leadingAndHintTextSpacing,
+                                          keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            DecimalTextInputFormatter(
+                                                decimalRange: 2),
+                                            _comaFormatter
+                                          ],
+                                          hintText: 'Masukkan Nilai',
+                                          enabled: _enableInput,
+                                          borderColor: _borderColor,
+                                          controller:
+                                              _luasTambahPulihController,
+                                          onChange: (value) {
+                                            _calculateLuasTambahJumlah();
+                                            _calculateKeadaanPulih();
+                                          },
                                           onEditingComplete: () =>
                                               _focusScope.nextFocus())
                                     ]),
@@ -1690,7 +2031,7 @@ class _DPIState extends State<DPIAndOPT> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       CustomForm.textFieldLabel(context,
-                                          label: 'Luas Tambah (Jumlah)',
+                                          label: 'Luas Tambah (Jumlah) (ha)',
                                           color: CustomColors.eLaporBlack,
                                           fontSize: _textFieldLabelFontSize,
                                           fontWeight:
@@ -1701,8 +2042,13 @@ class _DPIState extends State<DPIAndOPT> {
                                           leadingAndHintTextSpacing:
                                               _leadingAndHintTextSpacing,
                                           keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            DecimalTextInputFormatter(
+                                                decimalRange: 2),
+                                            _comaFormatter
+                                          ],
                                           hintText: 'Masukkan Nilai',
-                                          enabled: _enableInput,
+                                          enabled: false,
                                           borderColor: _borderColor,
                                           controller:
                                               _luasTambahJumlahController,
@@ -1719,7 +2065,7 @@ class _DPIState extends State<DPIAndOPT> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       CustomForm.textFieldLabel(context,
-                                          label: 'Keadaan Terkena',
+                                          label: 'Keadaan Terkena (ha)',
                                           color: CustomColors.eLaporBlack,
                                           fontSize: _textFieldLabelFontSize,
                                           fontWeight:
@@ -1730,8 +2076,13 @@ class _DPIState extends State<DPIAndOPT> {
                                           leadingAndHintTextSpacing:
                                               _leadingAndHintTextSpacing,
                                           keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            DecimalTextInputFormatter(
+                                                decimalRange: 2),
+                                            _comaFormatter
+                                          ],
                                           hintText: 'Masukkan Nilai',
-                                          enabled: _enableInput,
+                                          enabled: false,
                                           borderColor: _borderColor,
                                           controller: _keadaanTerkenaController,
                                           onEditingComplete: () =>
@@ -1747,7 +2098,7 @@ class _DPIState extends State<DPIAndOPT> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       CustomForm.textFieldLabel(context,
-                                          label: 'Keadaan Ringan',
+                                          label: 'Keadaan (Ringan) (ha)',
                                           color: CustomColors.eLaporBlack,
                                           fontSize: _textFieldLabelFontSize,
                                           fontWeight:
@@ -1758,8 +2109,13 @@ class _DPIState extends State<DPIAndOPT> {
                                           leadingAndHintTextSpacing:
                                               _leadingAndHintTextSpacing,
                                           keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            DecimalTextInputFormatter(
+                                                decimalRange: 2),
+                                            _comaFormatter
+                                          ],
                                           hintText: 'Masukkan Nilai',
-                                          enabled: _enableInput,
+                                          enabled: false,
                                           borderColor: _borderColor,
                                           controller: _keadaanRinganController,
                                           onEditingComplete: () =>
@@ -1775,7 +2131,7 @@ class _DPIState extends State<DPIAndOPT> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       CustomForm.textFieldLabel(context,
-                                          label: 'Keadaan Sedang',
+                                          label: 'Keadaan (Sedang) (ha)',
                                           color: CustomColors.eLaporBlack,
                                           fontSize: _textFieldLabelFontSize,
                                           fontWeight:
@@ -1786,8 +2142,13 @@ class _DPIState extends State<DPIAndOPT> {
                                           leadingAndHintTextSpacing:
                                               _leadingAndHintTextSpacing,
                                           keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            DecimalTextInputFormatter(
+                                                decimalRange: 2),
+                                            _comaFormatter
+                                          ],
                                           hintText: 'Masukkan Nilai',
-                                          enabled: _enableInput,
+                                          enabled: false,
                                           borderColor: _borderColor,
                                           controller: _keadaanSedangController,
                                           onEditingComplete: () =>
@@ -1803,7 +2164,7 @@ class _DPIState extends State<DPIAndOPT> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       CustomForm.textFieldLabel(context,
-                                          label: 'Keadaan  Berat',
+                                          label: 'Keadaan (Berat) (ha)',
                                           color: CustomColors.eLaporBlack,
                                           fontSize: _textFieldLabelFontSize,
                                           fontWeight:
@@ -1814,8 +2175,13 @@ class _DPIState extends State<DPIAndOPT> {
                                           leadingAndHintTextSpacing:
                                               _leadingAndHintTextSpacing,
                                           keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            DecimalTextInputFormatter(
+                                                decimalRange: 2),
+                                            _comaFormatter
+                                          ],
                                           hintText: 'Masukkan Nilai',
-                                          enabled: _enableInput,
+                                          enabled: false,
                                           borderColor: _borderColor,
                                           controller: _keadaanBeratController,
                                           onEditingComplete: () =>
@@ -1829,7 +2195,7 @@ class _DPIState extends State<DPIAndOPT> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 CustomForm.textFieldLabel(context,
-                                    label: 'Keadaan Puso',
+                                    label: 'Keadaan (Puso) (ha)',
                                     color: CustomColors.eLaporBlack,
                                     fontSize: _textFieldLabelFontSize,
                                     fontWeight: _textFieldLabelFontWeight),
@@ -1839,8 +2205,13 @@ class _DPIState extends State<DPIAndOPT> {
                                     leadingAndHintTextSpacing:
                                         _leadingAndHintTextSpacing,
                                     keyboardType: TextInputType.number,
+                                    inputFormatters: [
+                                      DecimalTextInputFormatter(
+                                          decimalRange: 2),
+                                      _comaFormatter
+                                    ],
                                     hintText: 'Masukkan Nilai',
-                                    enabled: _enableInput,
+                                    enabled: false,
                                     borderColor: _borderColor,
                                     controller: _keadaanPusoController,
                                     onEditingComplete: () =>
@@ -1855,7 +2226,7 @@ class _DPIState extends State<DPIAndOPT> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       CustomForm.textFieldLabel(context,
-                                          label: 'Keadaan Surut',
+                                          label: 'Keadaan (Surut) (ha)',
                                           color: CustomColors.eLaporBlack,
                                           fontSize: _textFieldLabelFontSize,
                                           fontWeight:
@@ -1866,8 +2237,13 @@ class _DPIState extends State<DPIAndOPT> {
                                           leadingAndHintTextSpacing:
                                               _leadingAndHintTextSpacing,
                                           keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            DecimalTextInputFormatter(
+                                                decimalRange: 2),
+                                            _comaFormatter
+                                          ],
                                           hintText: 'Masukkan Nilai',
-                                          enabled: _enableInput,
+                                          enabled: false,
                                           borderColor: _borderColor,
                                           controller: _keadaanSurutController,
                                           onEditingComplete: () =>
@@ -1883,7 +2259,7 @@ class _DPIState extends State<DPIAndOPT> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       CustomForm.textFieldLabel(context,
-                                          label: 'Keadaan Pulih',
+                                          label: 'Keadaan (Pulih) (ha)',
                                           color: CustomColors.eLaporBlack,
                                           fontSize: _textFieldLabelFontSize,
                                           fontWeight:
@@ -1894,8 +2270,13 @@ class _DPIState extends State<DPIAndOPT> {
                                           leadingAndHintTextSpacing:
                                               _leadingAndHintTextSpacing,
                                           keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            DecimalTextInputFormatter(
+                                                decimalRange: 2),
+                                            _comaFormatter
+                                          ],
                                           hintText: 'Masukkan Nilai',
-                                          enabled: _enableInput,
+                                          enabled: false,
                                           borderColor: _borderColor,
                                           controller: _keadaanPulihController,
                                           onEditingComplete: () =>
@@ -1911,7 +2292,7 @@ class _DPIState extends State<DPIAndOPT> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       CustomForm.textFieldLabel(context,
-                                          label: 'Keadaan Jumlah',
+                                          label: 'Keadaan (Jumlah) (ha)',
                                           color: CustomColors.eLaporBlack,
                                           fontSize: _textFieldLabelFontSize,
                                           fontWeight:
@@ -1922,9 +2303,14 @@ class _DPIState extends State<DPIAndOPT> {
                                           leadingAndHintTextSpacing:
                                               _leadingAndHintTextSpacing,
                                           keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            DecimalTextInputFormatter(
+                                                decimalRange: 2),
+                                            _comaFormatter
+                                          ],
                                           hintText: 'Masukkan Nilai',
                                           borderColor: _borderColor,
-                                          enabled: _enableInput,
+                                          enabled: false,
                                           controller: _keadaanJumlahController,
                                           onEditingComplete: () =>
                                               _focusScope.nextFocus())
@@ -1939,7 +2325,7 @@ class _DPIState extends State<DPIAndOPT> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       CustomForm.textFieldLabel(context,
-                                          label: 'Periode Okmar asep',
+                                          label: 'Periode (Okmar/asep)',
                                           color: CustomColors.eLaporBlack,
                                           fontSize: _textFieldLabelFontSize,
                                           fontWeight:
@@ -1992,7 +2378,7 @@ class _DPIState extends State<DPIAndOPT> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       CustomForm.textFieldLabel(context,
-                                          label: 'MT MK MH',
+                                          label: 'MT (MK/MH)',
                                           color: CustomColors.eLaporBlack,
                                           fontSize: _textFieldLabelFontSize,
                                           fontWeight:
@@ -2184,10 +2570,14 @@ class _DPIState extends State<DPIAndOPT> {
                                     _dataDPI['id'] = _idLaporan;
                                   }
 
+                                  print(_dataDPI['visited_at']);
                                   widget.onSubmit(_dataDPI);
                                 },
                                     color: CustomColors.eLaporGreen,
-                                    isBusy: !_isBtnSubmitActive))
+                                    isBusy: !_isBtnSubmitActive,
+                                    trailing: Icon(
+                                        Icons.arrow_forward_ios_sharp,
+                                        color: CustomColors.eLaporWhite)))
                             : SizedBox(),
                       ]),
                 ),

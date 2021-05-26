@@ -57,7 +57,9 @@ class DPIFuture {
         '/' +
         ServerPath.desaWilKerPath +
         '?$_provinsiQS$_kabupatenQS$_kecamatanQS$_kelurahanQS');
+
     Response _httpResponse = await get(_url);
+
     if (_httpResponse.statusCode == 200) {
       Map<String, dynamic> _decodedBody = jsonDecode(_httpResponse.body);
       if (_decodedBody.containsKey('data')) {

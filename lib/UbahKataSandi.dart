@@ -32,6 +32,7 @@ class _UbahKataSandiState extends State<UbahKataSandi> {
   bool _showKataSandiLama = false;
   bool _showKataSandiBaru = false;
   bool _showKonfirmasiKataSandiBaru = false;
+  bool _isSubmitBtnBusy = false;
 
   Widget build(BuildContext context) {
     SizeConfig().initSize(context);
@@ -164,6 +165,10 @@ class _UbahKataSandiState extends State<UbahKataSandi> {
       Padding(
           padding: EdgeInsets.only(top: _paddingTop),
           child: Button.submitButton(context, 'UBAH', () async {
+            setState(() {
+              _isSubmitBtnBusy = true;
+            });
+
             Map<String, dynamic> _dataLogin = await AkunFuture.getDataLogin();
             int _userID = _dataLogin[SPKey.idUser];
 
@@ -183,11 +188,13 @@ class _UbahKataSandiState extends State<UbahKataSandi> {
             String _buttonText = 'Coba Lagi!';
             String _message = 'Silahkan coba lagi, server tidak merespon!';
 
+            bool _isSuccess;
+
             if (_gantiKataSandi != null) {
               String _statusGantiKataSandi = _gantiKataSandi['status'];
               String _statusSuccess = 'success';
 
-              bool _isSuccess =
+              _isSuccess =
                   _statusGantiKataSandi.toLowerCase() == _statusSuccess;
 
               _message = _gantiKataSandi['message'];
@@ -206,6 +213,11 @@ class _UbahKataSandiState extends State<UbahKataSandi> {
             }
 
             Widget _actions = Button.button(context, _buttonText, () {
+              if (_isSuccess != null && _isSuccess) {
+                _kataSandiLamaController.clear();
+                _kataSandiBaruController.clear();
+                _konfirmasiKataSandiBaruController.clear();
+              }
               Navigator.pop(context);
             }, color: _iconColor, outline: true);
 
@@ -214,7 +226,11 @@ class _UbahKataSandiState extends State<UbahKataSandi> {
                 title: _title,
                 subTitle: _message,
                 actions: _actions);
-          }, color: CustomColors.eLaporGreen)),
+
+            setState(() {
+              _isSubmitBtnBusy = false;
+            });
+          }, isBusy: _isSubmitBtnBusy, color: CustomColors.eLaporGreen)),
     ]));
   }
 }

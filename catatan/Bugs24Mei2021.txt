@@ -1,0 +1,2 @@
+1. keadaan di dpi
+2. auto calculate di opt

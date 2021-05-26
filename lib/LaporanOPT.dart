@@ -1,3 +1,4 @@
+import 'package:e_lapor/Navigation/TabItem.dart';
 import 'package:e_lapor/TambahLaporan.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,10 @@ class LaporanOPT extends StatelessWidget {
               imageAssetPath: ClientPath.iconPath + '/image3.png',
               buttonText: 'LAPOR',
               onButtonTap: () => Navigator.push(
-                  context, MaterialPageRoute(builder: (_) => TambahLaporan()))),
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) =>
+                          TambahLaporan(tabItem: TabItem.beranda)))),
           LaporanItem(
               imageAssetPath: ClientPath.iconPath + '/image4.png',
               buttonText: 'REKAPITULASI',

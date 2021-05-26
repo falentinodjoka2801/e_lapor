@@ -1,12 +1,14 @@
 import 'dart:convert';
 
+import 'package:e_lapor/Beranda.dart';
+import 'package:e_lapor/Laporanku.dart';
+import 'package:e_lapor/Navigation/TabItem.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart';
 
 import 'package:e_lapor/DPI/DPIAndOPT.dart';
-import 'package:e_lapor/Beranda.dart';
 
 import 'package:e_lapor/globalWidgets/Alert.dart';
 import 'package:e_lapor/globalWidgets/Button.dart';
@@ -17,9 +19,13 @@ import 'package:e_lapor/libraries/ServerPath.dart';
 enum BencanaAlamAction { add, edit, detail }
 
 class BencanaAlam extends StatefulWidget {
+  final TabItem tabItem;
   final int idLaporan;
   final BencanaAlamAction action;
-  BencanaAlam({this.idLaporan, this.action = BencanaAlamAction.add});
+  BencanaAlam(
+      {@required this.tabItem,
+      this.idLaporan,
+      this.action = BencanaAlamAction.add});
 
   _BencanaAlamState createState() => _BencanaAlamState();
 }
@@ -52,6 +58,11 @@ class _BencanaAlamState extends State<BencanaAlam> {
         isBtnSubmitActive: _isBtnSubmitActive,
         dpiAndOPTTitle: '$_editString DPI Bencana Alam',
         onSubmit: (dataDPI) async {
+          TabItem _tabItem = widget.tabItem;
+
+          BuildContext _tabItemContext =
+              navigatesKey[_tabItem].currentState.context;
+
           setState(() {
             _isBtnSubmitActive = false;
           });
@@ -63,8 +74,10 @@ class _BencanaAlamState extends State<BencanaAlam> {
 
           MultipartRequest _request = MultipartRequest('POST', _url);
 
-          _request.files
-              .add(await MultipartFile.fromPath('photo', _photo.path));
+          if (_photo != null) {
+            _request.files
+                .add(await MultipartFile.fromPath('photo', _photo.path));
+          }
 
           dataDPI.forEach((key, value) {
             if (key.toLowerCase() != 'photo') {
@@ -93,15 +106,17 @@ class _BencanaAlamState extends State<BencanaAlam> {
           }
 
           Widget _icon = SvgPicture.asset(ClientPath.svgPath + '/$_iconPath');
+          Widget _pageToRoute =
+              (_tabItem == TabItem.beranda) ? Beranda() : LaporanKu();
 
           Widget _actions = Button.button(context, _buttonText, () {
             if (_success) {
               Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (_) => Beranda()),
+                  _tabItemContext,
+                  MaterialPageRoute(builder: (_) => _pageToRoute),
                   (route) => false);
             } else {
-              Navigator.pop(context);
+              Navigator.pop(_tabItemContext);
             }
           }, color: _iconColor, outline: true);
 
@@ -109,7 +124,7 @@ class _BencanaAlamState extends State<BencanaAlam> {
             _isBtnSubmitActive = true;
           });
 
-          await Alert.textComponent(context,
+          await Alert.textComponent(_tabItemContext,
               icon: _icon,
               title: _title,
               subTitle: _message,

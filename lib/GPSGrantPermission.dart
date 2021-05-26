@@ -3,6 +3,7 @@ import 'package:e_lapor/libraries/ClientPath.dart';
 import 'package:e_lapor/libraries/CustomColors.dart';
 import 'package:e_lapor/libraries/SizeConfig.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
 
 class GPSGrantPermission extends StatelessWidget {
@@ -17,7 +18,7 @@ class GPSGrantPermission extends StatelessWidget {
       padding:
           EdgeInsets.symmetric(horizontal: SizeConfig.horizontalBlock * 5.0),
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Image.asset(ClientPath.iconPath + '/gps.png'),
+        SvgPicture.asset(ClientPath.svgPath + '/gps.svg'),
         SizedBox(height: SizeConfig.horizontalBlock * 7.25),
         Text('Hidupkan GPS',
             style: TextStyle(
